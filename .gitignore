@@ -1,0 +1,17 @@
+# Local research artifacts are intentionally not committed.
+projects/*
+!projects/.gitkeep
+
+# Local environment and secret files.
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.sqlite
+*.sqlite3
+
+# OS/editor noise.
+.DS_Store
+*.swp
+*.swo

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Paperflow Research"
+  short_description: "Repo-aware literature review"
+  default_prompt: "Use Paperflow Research to answer a source request page, extract only the needed source context, check Paperpile first, search free web sources for gaps, create per-paper summaries, synthesize a scoped review, return an answer, and propose next steps."

@@ -1,0 +1,36 @@
+project_slug: "<project-slug>"
+title: "<human readable project title>"
+source_repositories:
+  - path: "/absolute/path/to/source/repository"
+    role: "primary"
+related_source_repositories: []
+related_projects: []
+research_request: "research-request.md"
+requests:
+  dir: "requests"
+  latest: ""
+answers:
+  dir: "answers"
+  latest: ""
+literature_master: "literature_master.md"
+summaries_dir: "summaries"
+review:
+  dir: "reviews"
+  latest_outline: ""
+  latest: ""
+proposals:
+  dir: "proposals"
+  latest: ""
+paperpile_add_candidates: "paperpile_add_candidates.md"
+paperpile:
+  drive_folder: ""
+  notes: ""
+status:
+  source_context: "not_started"
+  literature_search: "not_started"
+  summaries: "not_started"
+  review: "not_started"
+  answer: "not_started"
+  proposal: "not_started"
+updated: "YYYY-MM-DD"
+notes: ""
