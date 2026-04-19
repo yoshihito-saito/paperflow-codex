@@ -9,11 +9,21 @@ description: Use when Codex is asked to answer a source request page with litera
 
 Treat literature-grounded answering as a reproducible request-response pipeline, not a one-shot answer. The main input is a source request page: a Markdown page from a source repository, notes folder, or user-provided path that states a question, source context, relevant files, and desired output.
 
-Preserve intermediate artifacts: copied/normalized request, per-paper summaries, literature master, scoped review, answer, proposal, run log, and Paperpile add candidates.
+Preserve intermediate files: copied/normalized request, per-paper summaries, literature master, scoped review, answer, proposal, run log, and Paperpile add candidates.
 
 Use the request page as authoritative. Read only the source files named in the request unless the request is underspecified or the user asks for broader inspection. Source context extraction supports the answer; it is not the primary goal.
 
-Store generated research artifacts in `paperflow-codex/projects/<project-slug>/` by default, not in the source repository. Treat each project folder as a reusable knowledge package that can be loaded later from other repositories.
+Store generated research files in `paperflow-codex/projects/<project-slug>/` by default, not in the source repository. Treat each project folder as a reusable knowledge package that can be loaded later from other repositories.
+
+## One-Line Invocation
+
+When the user says something like this, run the full workflow:
+
+```text
+Use paperflow-research to answer /path/to/source/request.md and save the results in <paperflow-codex-path>.
+```
+
+Interpret "save the results" as creating or updating the project folder under `projects/<project-slug>/` with the request, answer, summaries, review, proposal, run log, and Paperpile add candidates.
 
 ## Standard Workflow
 
@@ -29,7 +39,7 @@ Store generated research artifacts in `paperflow-codex/projects/<project-slug>/`
 10. Create or update one Markdown summary file per paper read beyond metadata level.
 11. Build or update `literature_master.md` from the paper summaries.
 12. Synthesize a scoped review for the request.
-13. Produce an answer that directly responds to the request, with links to evidence artifacts.
+13. Produce an answer that directly responds to the request, with links to the supporting files.
 14. Produce a proposal with concrete experiments, implementation changes, or decision points when the request asks for next steps.
 15. Update `manifest.yaml`, `projects/INDEX.md`, and `run-log.md`.
 16. Suggest open-access PDFs to add to Paperpile, but do not add or move files without explicit user approval.
@@ -154,7 +164,7 @@ projects/<project-slug>/
   paperpile_add_candidates.md
 ```
 
-Keep generated artifacts in `paperflow-codex`, not inside the source repository, unless the user explicitly asks to modify the source repository.
+Keep generated output files in `paperflow-codex`, not inside the source repository, unless the user explicitly asks to modify the source repository.
 
 Also keep `projects/INDEX.md` updated. It should list every project slug, source repository, latest request, latest answer, review path, proposal path, and relationship to other project folders.
 

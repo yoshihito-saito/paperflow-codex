@@ -13,7 +13,15 @@ It is designed to bridge a source request page with a Paperflow-style literature
 7. return a direct answer, and
 8. propose concrete research or implementation next steps.
 
-The guiding idea is that an answer should be compiled from durable intermediate artifacts, not generated directly from a single ad hoc search.
+The guiding idea is that an answer should be compiled from saved notes and summary files, not generated directly from a single ad hoc search.
+
+## One-Line Use
+
+For most requests, this is enough:
+
+```text
+Use paperflow-research to answer /path/to/source/request.md and save the results in <paperflow-codex-path>.
+```
 
 ## Layout
 
@@ -58,7 +66,7 @@ The preferred input is a source request page. The page can live in a source repo
 ```text
 Use the paperflow-research skill.
 Answer the request in /path/to/source/repo/documents/PAPERFLOW_REQUESTS/<request>.md.
-Store artifacts in <paperflow-codex-path>.
+Save the results in <paperflow-codex-path>.
 ```
 
 The normalized request and answer live in this repository:
@@ -68,7 +76,7 @@ projects/<project-slug>/requests/<request-slug>.md
 projects/<project-slug>/answers/<request-slug>.md
 ```
 
-The supporting artifacts also live in this repository:
+The supporting output files also live in this repository:
 
 ```text
 projects/<project-slug>/summaries/
@@ -94,7 +102,7 @@ From another repository or source page, ask Codex to use the manifest or index:
 ```text
 Use the paperflow-research skill.
 Load <paperflow-codex-path>/projects/INDEX.md,
-then reuse the answer artifacts for <project-slug>.
+then reuse the saved answers for <project-slug>.
 Compare them with the current request and propose what carries over.
 ```
 
@@ -105,9 +113,7 @@ When a new repository is related to an existing project, add it under `related_s
 Ask Codex to use the `paperflow-research` skill with a source request:
 
 ```text
-Use the paperflow-research skill in <paperflow-codex-path>.
-Answer the request in projects/<project-slug>/requests/<request-slug>.md.
-Create per-paper summaries, a scoped review, an answer, and a proposal.
+Use paperflow-research to answer projects/<project-slug>/requests/<request-slug>.md and save the results in <paperflow-codex-path>.
 ```
 
 For actual work, copy or adapt `skills/paperflow-research/references/source-request-template.md` into `projects/<project-slug>/requests/<request-slug>.md` or into a source repository page that Codex can read.
