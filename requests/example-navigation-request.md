@@ -10,12 +10,12 @@ Investigate how recurrent models form state-space representations in navigation 
 
 ## Current Context
 
-- Current model or method: inspect the source repository before filling this in.
-- Current task or dataset: inspect the source repository before filling this in.
+- Current model or method: read the source request and named source files before filling this in.
+- Current task or dataset: read the source request and named source files before filling this in.
 - Current implementation assumption: RNN dynamics may encode useful navigation state representations.
 - Observed problem: unknown; identify from code, docs, notes, and experiments.
 - Desired behavior: a state-space representation that supports navigation, generalization, and interpretable analysis.
-- What has already been tried: inspect the source repository before filling this in.
+- What has already been tried: read the source request and named source files before filling this in.
 
 ## Files To Inspect
 
@@ -49,16 +49,16 @@ Investigate how recurrent models form state-space representations in navigation 
 
 ## Desired Outputs
 
-- per-paper summary files in `projects/<project-slug>/summaries/`
-- `projects/<project-slug>/literature_master.md`
-- `projects/<project-slug>/reviews/<request-slug>-review.md`
-- `projects/<project-slug>/answers/<request-slug>.md`
-- `projects/<project-slug>/proposals/YYYY-MM-DD-<topic>.md`
-- `projects/<project-slug>/paperpile_add_candidates.md`
+- per-paper summary files in `paperflow/<request-slug>/summaries/`
+- `paperflow/<request-slug>/literature_master.md`
+- `paperflow/<request-slug>/reviews/review.md`
+- `paperflow/<request-slug>/answer.md`
+- `paperflow/<request-slug>/proposals/YYYY-MM-DD-<topic>.md`
+- `paperflow/<request-slug>/paperpile_add_candidates.md`
 
 ## Constraints
 
 - Use free web sources first.
 - Do not use paid APIs or subscription databases.
-- Do not modify the source repository unless explicitly requested.
+- Do not modify source code, configs, data, or experiment files unless explicitly requested.
 - Do not add PDFs to Paperpile without approval.

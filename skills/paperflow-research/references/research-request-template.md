@@ -52,5 +52,5 @@ State the concrete scientific or technical question.
 
 - Use free web sources first.
 - Do not use paid APIs or subscription databases.
-- Do not modify the source repository unless explicitly requested.
+- Do not modify source code, configs, data, or experiment files unless explicitly requested.
 - Do not add PDFs to Paperpile without approval.

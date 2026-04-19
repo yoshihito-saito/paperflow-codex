@@ -1,23 +1,13 @@
-project_slug: "<project-slug>"
-title: "<human readable project title>"
-source_repositories:
-  - path: "/absolute/path/to/source/repository"
-    role: "primary"
-related_source_repositories: []
-related_projects: []
-research_request: "research-request.md"
-requests:
-  dir: "requests"
-  latest: ""
-answers:
-  dir: "answers"
-  latest: ""
+request_slug: "<request-slug>"
+title: "<human readable request title>"
+source_repository: "/absolute/path/to/source/repository"
+source_request: "paperflow-requests/<request-slug>.md"
+output_dir: "paperflow/<request-slug>"
+request_copy: "request.md"
+answer: "answer.md"
 literature_master: "literature_master.md"
 summaries_dir: "summaries"
-review:
-  dir: "reviews"
-  latest_outline: ""
-  latest: ""
+review: "reviews/review.md"
 proposals:
   dir: "proposals"
   latest: ""

@@ -1,6 +1,5 @@
-# Local research artifacts are intentionally not committed.
-projects/*
-!projects/.gitkeep
+# Legacy local output folders from older workflow drafts.
+projects/
 
 # Local environment and secret files.
 .env

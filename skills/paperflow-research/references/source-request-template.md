@@ -8,7 +8,6 @@ State the question that paperflow should answer.
 
 - Source repository:
 - Source page:
-- Project slug:
 - Request slug:
 
 ## Source Context
@@ -42,10 +41,14 @@ Summarize the relevant project context, observed behavior, assumptions, and clai
 - mechanism comparison
 - proposal or next actions
 
+## Output
+
+- Default output folder: `paperflow/<request-slug>/`
+
 ## Constraints
 
 - Use Paperpile / Google Drive before web search.
 - Use free web sources for missing papers.
-- Do not modify the source repository unless explicitly requested.
+- Do not modify source code, configs, data, or experiment files unless explicitly requested.
 - Do not add PDFs to Paperpile without approval.
 - Be explicit about which source files were read.
