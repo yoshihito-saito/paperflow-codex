@@ -56,8 +56,6 @@ paperflow-codex/
         review-template.md
         proposal-template.md
         run-manifest-template.yaml
-  requests/
-    example-navigation-request.md
 ```
 
 ## How It Works
