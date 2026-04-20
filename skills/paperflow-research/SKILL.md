@@ -1,6 +1,6 @@
 ---
 name: paperflow-research
-description: Use when Codex is asked to answer a source request page with literature-grounded research, check the user's Google Drive Paperpile library first, search free web sources for missing papers, create per-paper summaries, synthesize a scoped review, and return an answer plus concrete proposals.
+description: Use when Codex is asked to answer a source request page with literature-grounded research, check the user's existing paper library when available, search free web sources for missing papers, create per-paper summaries, synthesize a scoped review, and return an answer plus concrete proposals.
 ---
 
 # Paperflow Research
@@ -9,7 +9,7 @@ description: Use when Codex is asked to answer a source request page with litera
 
 Treat literature-grounded answering as a reproducible request-response pipeline, not a one-shot answer. The main input is a source request page: a Markdown page from a source repository, notes folder, or user-provided path that states a question, source context, relevant files, and desired output.
 
-Preserve intermediate files inside the source repository: copied/normalized request, per-paper summaries, literature master, scoped review, answer, proposal, run log, and Paperpile add candidates.
+Preserve intermediate files inside the source repository: copied/normalized request, per-paper summaries, literature master, scoped review, answer, proposal, run log, and literature add candidates.
 
 Use the request page as authoritative. Read only the source files named in the request unless the request is underspecified or the user asks for broader inspection. Source context extraction supports the answer; it is not the primary goal.
 
@@ -28,12 +28,12 @@ If no output location is specified, save the results in the same source reposito
 ## Standard Workflow
 
 1. Read the source request page, or create one from `references/source-request-template.md` if the user gives the request in chat.
-2. Extract the request slug, source repository or source page path, research question, source context, named source files, literature scope, Paperpile search terms, and desired answer format.
+2. Extract the request slug, source repository or source page path, research question, source context, named source files, literature scope, library search terms, and desired answer format.
 3. Create or update the output folder in the source repository: `paperflow/<request-slug>/`.
-4. Create or update `run-manifest.yaml`, `run-log.md`, `literature_master.md`, and `paperpile_add_candidates.md`.
+4. Create or update `run-manifest.yaml`, `run-log.md`, `literature_master.md`, and `literature_add_candidates.md`.
 5. Read only the source files named in the request. If no files are named and the source context is insufficient, do a narrow fallback read of `README*`, cited docs, or obvious config/model files.
-6. Search the user's Google Drive Paperpile folder first.
-7. Reuse existing metadata, notes, summaries, and PDFs when available.
+6. Check available paper-library sources first. Use Google Drive / Paperpile when available; otherwise check local bibliography and notes files in the source repository.
+7. Reuse existing metadata, notes, summaries, PDFs, and BibTeX entries when available.
 8. Deduplicate papers before web search using DOI, arXiv ID, PMID, then normalized title.
 9. Search free web sources only for gaps: arXiv, PubMed, OpenAlex, Crossref, publisher pages, author pages, GitHub, and project pages.
 10. Create or update one Markdown summary file per paper read beyond metadata level.
@@ -42,7 +42,7 @@ If no output location is specified, save the results in the same source reposito
 13. Produce an answer that directly responds to the request, with links to the supporting files.
 14. Produce a proposal with concrete experiments, implementation changes, or decision points when the request asks for next steps.
 15. Update `run-manifest.yaml` and `run-log.md`.
-16. Suggest open-access PDFs to add to Paperpile, but do not add or move files without explicit user approval.
+16. Suggest papers to add to the user's library, but do not add, upload, move, rename, or delete files without explicit user approval.
 
 ## Source Request Handling
 
@@ -52,7 +52,7 @@ The source request page is the contract. It should contain:
 - the source repository or source page path
 - the relevant source context
 - the source files to read
-- the literature scope and Paperpile search terms
+- the literature scope and library search terms
 - the desired output
 - constraints and claim boundaries
 
@@ -74,20 +74,21 @@ Source context extraction is narrow and request-guided. Start with files named i
 
 If the request already contains enough context, source file reads may be minimal. If the request is underspecified, read the smallest set of source files needed to answer accurately, then record what was inspected in the answer and proposal.
 
-## Paperpile-First Literature Search
+## Existing-Library-First Literature Search
 
-When Google Drive tools are available:
+Use the user's existing paper library first when one is available. Paperpile / Google Drive is optional.
 
-1. Find the user's Paperpile folder or the folder specified in the request.
-2. Search for existing papers using query terms from the source request and source context.
-3. Include PDFs, Google Docs, Sheets, BibTeX, notes, and existing literature lists.
-4. Record whether each paper is already in Paperpile.
+Recommended order:
 
-When Drive access is unavailable or blocked, state that limitation and continue with local files and free web sources.
+1. If Google Drive / Paperpile is available, search it first.
+2. If Google Drive / Paperpile is unavailable, record that in `run-log.md` and continue.
+3. Search local source-repository files such as `references.bib`, `*.bib`, `literature.md`, `notes/`, `docs/`, `paperflow/`, and prior summaries.
+4. Search free web sources for the remaining gaps.
+5. Record each paper's library status as one of: `in Paperpile`, `in local bibliography`, `in source notes`, `not found locally`, or `unknown`.
 
 ## Web Search Rules
 
-Use web search after checking Paperpile. Prefer stable, free sources:
+Use web search after checking available local/library sources. Prefer stable, free sources:
 
 - arXiv
 - PubMed
@@ -108,7 +109,7 @@ Create or update one Markdown file for every paper that is read beyond metadata 
 
 `paperflow/<request-slug>/summaries/<year>-<first-author>-<short-title>.md`
 
-Use `references/summary-template.md` as the template. Each summary must preserve citation metadata, source links, Paperpile status, one-sentence takeaway, methods, key findings, limitations, relationship to other papers, relevance score, and notes for the final review.
+Use `references/summary-template.md` as the template. Each summary must preserve citation metadata, source links, library status, one-sentence takeaway, methods, key findings, limitations, relationship to other papers, relevance score, and notes for the final review.
 
 Do not overwrite an existing summary casually. If it exists, update it by preserving useful prior notes and adding new evidence, with a short `Update Notes` section when appropriate.
 
@@ -139,7 +140,7 @@ The proposal should connect literature to the source repository. It should inclu
 - concrete hypotheses
 - actionable experiments or implementation changes
 - risks and validation checks
-- Paperpile add candidates
+- literature add candidates
 
 ## Output Layout
 
@@ -156,7 +157,7 @@ Use this source-repository structure unless the user requests otherwise:
       run-manifest.yaml
       run-log.md
       literature_master.md
-      paperpile_add_candidates.md
+      literature_add_candidates.md
       summaries/
       reviews/
         review.md
@@ -184,7 +185,7 @@ paperflow/<request-slug>/
 
 ## Safety
 
-- Do not add PDFs to Paperpile automatically.
+- Do not add PDFs or metadata to Paperpile, Zotero, BibTeX files, or any other library automatically.
 - Do not upload, delete, rename, or move Google Drive files without explicit approval.
 - Do not modify source code, configs, data, or experiment files unless the user explicitly requests implementation. Writing `paperflow/<request-slug>/` output files is allowed as part of this skill.
 - Be clear when a paper was found but not fully read.

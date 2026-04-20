@@ -29,4 +29,4 @@ List concrete next steps, experiments, implementation changes, or decisions.
 - Literature master:
 - Review:
 - Proposal:
-- Paperpile add candidates:
+- Literature add candidates:

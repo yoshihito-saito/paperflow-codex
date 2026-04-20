@@ -9,7 +9,7 @@
 - arXiv / PMID / other ID:
 - URL:
 - Drive file:
-- Paperpile status: already in Paperpile / suggest adding / not found
+- Library status: in Paperpile / in local bibliography / in source notes / suggest adding / not found locally / unknown
 - Read status: metadata only / abstract read / partial read / full read
 
 ## One-Sentence Takeaway

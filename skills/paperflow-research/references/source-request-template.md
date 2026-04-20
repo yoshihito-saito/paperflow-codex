@@ -27,11 +27,17 @@ Summarize the relevant project context, observed behavior, assumptions, and clai
 - topic 2
 - topic 3
 
-## Paperpile Search Terms
+## Literature Search Terms
 
 - search term 1
 - search term 2
 - search term 3
+
+## Local Library Sources
+
+- Paperpile / Google Drive folder:
+- Local bibliography files:
+- Existing notes or literature lists:
 
 ## Desired Answer
 
@@ -47,8 +53,8 @@ Summarize the relevant project context, observed behavior, assumptions, and clai
 
 ## Constraints
 
-- Use Paperpile / Google Drive before web search.
+- Use existing paper-library sources before web search when available.
 - Use free web sources for missing papers.
 - Do not modify source code, configs, data, or experiment files unless explicitly requested.
-- Do not add PDFs to Paperpile without approval.
+- Do not add PDFs or metadata to Paperpile, Zotero, BibTeX files, or another library without approval.
 - Be explicit about which source files were read.

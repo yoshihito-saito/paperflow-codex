@@ -11,9 +11,12 @@ review: "reviews/review.md"
 proposals:
   dir: "proposals"
   latest: ""
-paperpile_add_candidates: "paperpile_add_candidates.md"
-paperpile:
-  drive_folder: ""
+literature_add_candidates: "literature_add_candidates.md"
+library:
+  provider: "unknown" # google_drive_paperpile / local_bibtex / source_notes / none / unknown
+  checked: false
+  folder: ""
+  files: []
   notes: ""
 status:
   source_context: "not_started"

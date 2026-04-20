@@ -35,10 +35,11 @@ Investigate how recurrent models form state-space representations in navigation 
 - hippocampal cognitive maps
 - recurrent networks and spatial generalization
 
-## Paperpile Scope
+## Local Library Scope
 
 - Google Drive Paperpile folder: use the user's Paperpile folder if available.
-- Search terms to use inside Paperpile:
+- Local bibliography files: search for `*.bib` or `references.bib` if present.
+- Search terms to use inside available libraries:
   - `RNN navigation`
   - `path integration recurrent neural network`
   - `state space navigation`
@@ -54,11 +55,11 @@ Investigate how recurrent models form state-space representations in navigation 
 - `paperflow/<request-slug>/reviews/review.md`
 - `paperflow/<request-slug>/answer.md`
 - `paperflow/<request-slug>/proposals/YYYY-MM-DD-<topic>.md`
-- `paperflow/<request-slug>/paperpile_add_candidates.md`
+- `paperflow/<request-slug>/literature_add_candidates.md`
 
 ## Constraints
 
 - Use free web sources first.
 - Do not use paid APIs or subscription databases.
 - Do not modify source code, configs, data, or experiment files unless explicitly requested.
-- Do not add PDFs to Paperpile without approval.
+- Do not add PDFs or metadata to Paperpile, Zotero, BibTeX files, or another library without approval.

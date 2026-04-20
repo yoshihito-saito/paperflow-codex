@@ -50,9 +50,9 @@ Explain likely causes, missing assumptions, or failure modes in the current appr
 - Check 2:
 - Check 3:
 
-## Paperpile Add Candidates
+## Literature Add Candidates
 
-Link to `paperpile_add_candidates.md` and summarize the top additions.
+Link to `literature_add_candidates.md` and summarize the top additions.
 
 ## Decision Points
 
