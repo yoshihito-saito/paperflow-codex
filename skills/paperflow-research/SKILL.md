@@ -36,7 +36,7 @@ If no output location is specified, save the results in the same source reposito
 7. Reuse existing metadata, notes, summaries, PDFs, and BibTeX entries when available.
 8. Deduplicate papers before web search using DOI, arXiv ID, PMID, then normalized title.
 9. Search free web sources only for gaps: arXiv, PubMed, OpenAlex, Crossref, publisher pages, author pages, GitHub, and project pages.
-10. Create or update one Markdown summary file per paper read beyond metadata level.
+10. Process papers one at a time. After reading each paper beyond metadata level, immediately create or update its Markdown summary before opening the next paper.
 11. Build or update `literature_master.md` from the paper summaries.
 12. Synthesize a scoped review for the request.
 13. Produce an answer that directly responds to the request, with links to the supporting files.
@@ -104,6 +104,22 @@ Use web search after checking available local/library sources. Prefer stable, fr
 Avoid paid APIs, paywalled databases, or subscription-only sources unless the user explicitly requests them.
 
 For each web result, separate metadata-level knowledge from content that has actually been read. Mark unread or partially read papers clearly.
+
+## Research Depth And Token Budget
+
+Use `standard` depth by default unless the request specifies otherwise:
+
+- `quick`: scan up to 20 candidate papers, summarize up to 5 papers, deeply read up to 2 papers.
+- `standard`: scan up to 40 candidate papers, summarize up to 20 papers, deeply read up to 10 papers.
+- `deep`: scan 50 or more candidate papers when useful, summarize up to 25 papers, deeply read up to 15 papers.
+
+Keep the context window lean:
+
+- Do not batch-read many full papers into the same context.
+- Read one paper, write or update its summary, then move to the next paper.
+- Treat saved summaries as the primary input for the review, answer, and proposal.
+- Re-open original papers only when a claim needs verification or a summary is insufficient.
+- Prefer concise summaries over copying long passages from papers.
 
 ## Per-Paper Summaries
 

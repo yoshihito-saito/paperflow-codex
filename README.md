@@ -134,6 +134,8 @@ This keeps the question, the answer, and the supporting notes beside the code or
 - `run-log.md`: what was done in this run.
 - `run-manifest.yaml`: status and paths for continuing the run later.
 
+By default, a standard run scans up to 40 candidate papers, writes summaries for up to 20 papers, and deeply reads up to 10 papers. The skill processes papers one at a time: read one paper, write or update its summary, then move to the next paper. Final reviews are synthesized from the saved summaries to keep context and token use under control.
+
 If you later want to add new keywords or papers, use the same folder:
 
 ```text

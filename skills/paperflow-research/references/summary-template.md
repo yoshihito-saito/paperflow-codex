@@ -12,6 +12,7 @@
 - Library status: in Paperpile / in local bibliography / in source notes / suggest adding / not found locally / unknown
 - PDF status: PDF available / PDF missing / open-access PDF found / metadata only / unknown
 - Read status: metadata only / abstract read / partial read / full read
+- Evidence used: metadata / abstract / introduction / methods / results / figures / discussion / full text
 
 ## One-Sentence Takeaway
 
@@ -61,6 +62,14 @@ A / B / C
 ## Notes For Final Review
 
 Capture phrasing, comparisons, or arguments that should be reused in the synthesis.
+
+## Token-Saving Takeaway
+
+- Use in final review: include / maybe / exclude
+- Reuse these points only:
+  - Point 1:
+  - Point 2:
+  - Point 3:
 
 ## Update Notes
 

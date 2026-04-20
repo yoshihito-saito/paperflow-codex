@@ -33,6 +33,14 @@ Summarize the relevant project context, observed behavior, assumptions, and clai
 - search term 2
 - search term 3
 
+## Research Depth
+
+- Depth preset: standard
+- Candidate scan: up to 40 papers
+- Per-paper summaries: up to 20 papers
+- Deep reads: up to 10 papers
+- Reading mode: one paper at a time; write or update its summary before opening the next paper
+
 ## Local Library Sources
 
 - Paperpile / Google Drive folder:

@@ -12,6 +12,12 @@ proposals:
   dir: "proposals"
   latest: ""
 literature_add_candidates: "literature_add_candidates.md"
+research_depth:
+  preset: "standard" # quick / standard / deep / custom
+  candidate_scan_limit: 40
+  summary_limit: 20
+  deep_read_limit: 10
+  reading_mode: "one_paper_at_a_time"
 library:
   provider: "unknown" # google_drive_paperpile / local_bibtex / source_notes / none / unknown
   priority: "paperpile_when_available"
