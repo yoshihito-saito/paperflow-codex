@@ -9,7 +9,7 @@ Use it when you have a source repository and want Codex to answer a question suc
 - What papers should be summarized before making a design decision?
 - What experiments or implementation changes should come next?
 
-The skill reads a request file, checks your existing paper library if one is available, searches the open web for missing papers, writes one summary per important paper, then writes an answer, review, and proposal. Paperpile / Google Drive is optional.
+The skill reads a request file, checks your existing paper library if one is available, searches the open web for missing papers, writes one summary per important paper, then writes an answer, review, and proposal. Paperpile / Google Drive is optional, but if it is available the skill should search it first.
 
 The important idea is simple: do not jump straight from search results to a final answer. Save the paper summaries and notes that support the answer, so the reasoning can be checked and updated later.
 
@@ -114,7 +114,7 @@ This keeps the question, the answer, and the supporting notes beside the code or
 - `reviews/review.md`: the literature review built from the summaries.
 - `proposals/`: concrete next experiments or implementation changes.
 - `literature_master.md`: a table and notes that track all papers considered.
-- `literature_add_candidates.md`: papers that may be worth adding to Paperpile, Zotero, a `.bib` file, or another local library.
+- `literature_add_candidates.md`: papers that may be worth adding to Paperpile, Zotero, a `.bib` file, or another local library. If a useful paper has no local PDF, the skill should say so here and suggest downloading or adding the PDF.
 - `run-log.md`: what was done in this run.
 - `run-manifest.yaml`: status and paths for continuing the run later.
 

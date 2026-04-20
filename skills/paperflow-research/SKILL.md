@@ -76,7 +76,7 @@ If the request already contains enough context, source file reads may be minimal
 
 ## Existing-Library-First Literature Search
 
-Use the user's existing paper library first when one is available. Paperpile / Google Drive is optional.
+Use the user's existing paper library first when one is available. Paperpile / Google Drive is optional, but when it is available it has priority over local bibliography files and web search.
 
 Recommended order:
 
@@ -85,6 +85,8 @@ Recommended order:
 3. Search local source-repository files such as `references.bib`, `*.bib`, `literature.md`, `notes/`, `docs/`, `paperflow/`, and prior summaries.
 4. Search free web sources for the remaining gaps.
 5. Record each paper's library status as one of: `in Paperpile`, `in local bibliography`, `in source notes`, `not found locally`, or `unknown`.
+6. Record each paper's PDF status as one of: `PDF available`, `PDF missing`, `open-access PDF found`, `metadata only`, or `unknown`.
+7. If a relevant paper has no local PDF, explicitly mark `PDF missing` in its summary and add it to `literature_add_candidates.md` with a suggestion to download or add the PDF.
 
 ## Web Search Rules
 
@@ -109,7 +111,7 @@ Create or update one Markdown file for every paper that is read beyond metadata 
 
 `paperflow/<request-slug>/summaries/<year>-<first-author>-<short-title>.md`
 
-Use `references/summary-template.md` as the template. Each summary must preserve citation metadata, source links, library status, one-sentence takeaway, methods, key findings, limitations, relationship to other papers, relevance score, and notes for the final review.
+Use `references/summary-template.md` as the template. Each summary must preserve citation metadata, source links, library status, PDF status, one-sentence takeaway, methods, key findings, limitations, relationship to other papers, relevance score, and notes for the final review.
 
 Do not overwrite an existing summary casually. If it exists, update it by preserving useful prior notes and adding new evidence, with a short `Update Notes` section when appropriate.
 
@@ -186,6 +188,7 @@ paperflow/<request-slug>/
 ## Safety
 
 - Do not add PDFs or metadata to Paperpile, Zotero, BibTeX files, or any other library automatically.
+- If a useful paper has no local PDF, suggest downloading or adding it, but do not download, upload, or move it without explicit approval.
 - Do not upload, delete, rename, or move Google Drive files without explicit approval.
 - Do not modify source code, configs, data, or experiment files unless the user explicitly requests implementation. Writing `paperflow/<request-slug>/` output files is allowed as part of this skill.
 - Be clear when a paper was found but not fully read.

@@ -52,7 +52,7 @@ Explain likely causes, missing assumptions, or failure modes in the current appr
 
 ## Literature Add Candidates
 
-Link to `literature_add_candidates.md` and summarize the top additions.
+Link to `literature_add_candidates.md` and summarize the top additions, especially papers with `PDF missing` that should be downloaded or added to the user's library.
 
 ## Decision Points
 

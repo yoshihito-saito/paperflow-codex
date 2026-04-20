@@ -10,6 +10,7 @@
 - URL:
 - Drive file:
 - Library status: in Paperpile / in local bibliography / in source notes / suggest adding / not found locally / unknown
+- PDF status: PDF available / PDF missing / open-access PDF found / metadata only / unknown
 - Read status: metadata only / abstract read / partial read / full read
 
 ## One-Sentence Takeaway

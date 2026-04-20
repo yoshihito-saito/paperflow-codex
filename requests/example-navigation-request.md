@@ -61,5 +61,7 @@ Investigate how recurrent models form state-space representations in navigation 
 
 - Use free web sources first.
 - Do not use paid APIs or subscription databases.
+- If Paperpile / Google Drive is available, search it first.
+- If a useful paper has no local PDF, mark it as missing and suggest downloading or adding the PDF.
 - Do not modify source code, configs, data, or experiment files unless explicitly requested.
 - Do not add PDFs or metadata to Paperpile, Zotero, BibTeX files, or another library without approval.

@@ -54,7 +54,9 @@ Summarize the relevant project context, observed behavior, assumptions, and clai
 ## Constraints
 
 - Use existing paper-library sources before web search when available.
+- If Paperpile / Google Drive is available, search it first.
 - Use free web sources for missing papers.
+- If a useful paper has no local PDF, mark it as missing and suggest downloading or adding the PDF.
 - Do not modify source code, configs, data, or experiment files unless explicitly requested.
 - Do not add PDFs or metadata to Paperpile, Zotero, BibTeX files, or another library without approval.
 - Be explicit about which source files were read.

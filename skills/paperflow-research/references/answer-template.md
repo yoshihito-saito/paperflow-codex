@@ -30,3 +30,4 @@ List concrete next steps, experiments, implementation changes, or decisions.
 - Review:
 - Proposal:
 - Literature add candidates:
+- Missing PDFs to download or add:
