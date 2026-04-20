@@ -59,30 +59,30 @@ paperflow-codex/
 A request file is a Markdown file that tells Codex what question to answer and what source context matters. It can be short. For example:
 
 ```text
-# Paperflow Request: Shortcut Failure
+# Paperflow Request: Unexpected Benchmark Regression
 
 ## Question
 
-Why does the current model avoid the wall but fail to use the open gap as a shortcut?
+Why did the latest implementation improve one benchmark but regress another, and what does the literature suggest we should check next?
 
 ## Source Files To Read
 
 - README.md
-- src/model.py
-- src/train.py
-- documents/EXPERIMENTS.md
+- src/
+- experiments/
+- docs/benchmark-notes.md
 
 ## Literature Scope
 
-- recurrent navigation
-- shortcut learning
-- successor representation
+- methods related to the implementation change
+- evaluation metrics used by the benchmark
+- known failure modes or tradeoffs
 ```
 
 Then ask Codex:
 
 ```text
-Use paperflow-research to answer paperflow-requests/shortcut-failure.md.
+Use paperflow-research to answer paperflow-requests/benchmark-regression.md.
 ```
 
 By default, the skill saves results in the source repository:
