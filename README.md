@@ -136,6 +136,8 @@ This keeps the question, the answer, and the supporting notes beside the code or
 
 By default, a standard run scans up to 40 candidate papers, writes summaries for up to 20 papers, and deeply reads up to 10 papers. The skill processes papers one at a time: read one paper, write or update its summary, then move to the next paper. Final reviews are synthesized from the saved summaries to keep context and token use under control.
 
+When equations, definitions, objectives, update rules, or algorithms matter, the skill should check them against the paper and preserve the verified details in the relevant per-paper summary.
+
 If you later want to add new keywords or papers, use the same folder:
 
 ```text

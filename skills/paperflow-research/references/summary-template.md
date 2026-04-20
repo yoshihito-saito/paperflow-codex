@@ -33,6 +33,24 @@ What question does the paper try to answer?
 - Training or analysis:
 - Metrics:
 
+## Mathematical And Algorithmic Details
+
+Use this section when equations, objectives, update rules, architectures, or algorithmic assumptions matter for the request.
+
+- Key equations or objectives:
+  - Equation:
+  - Meaning:
+  - Source location: section / equation number / page / figure
+- Symbols and dimensions:
+  - Symbol:
+  - Meaning:
+  - Shape or units:
+- Assumptions or constraints:
+- Algorithm inputs:
+- Algorithm outputs:
+- Core algorithm steps:
+- Verification status: checked against paper / needs verification / not applicable
+
 ## Key Findings
 
 - Finding 1:

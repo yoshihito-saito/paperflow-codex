@@ -121,13 +121,23 @@ Keep the context window lean:
 - Re-open original papers only when a claim needs verification or a summary is insufficient.
 - Prefer concise summaries over copying long passages from papers.
 
+## Mathematical And Algorithmic Accuracy
+
+When a paper's contribution depends on equations, definitions, objectives, update rules, architectures, or algorithmic assumptions, verify those details from the paper before adding them to the summary.
+
+- Preserve important equations in concise LaTeX form when they are needed for the review or proposal.
+- Record symbol meanings, dimensions, assumptions, loss terms, constraints, and equation numbers when available.
+- Distinguish exact formulas from paraphrased intuition.
+- If an equation, derivation step, or notation is uncertain, mark it as `needs verification` instead of guessing.
+- For algorithms, capture the inputs, outputs, core steps, and any stated complexity or convergence conditions when relevant.
+
 ## Per-Paper Summaries
 
 Create or update one Markdown file for every paper that is read beyond metadata level. Use:
 
 `paperflow/<request-slug>/summaries/<year>-<first-author>-<short-title>.md`
 
-Use `references/summary-template.md` as the template. Each summary must preserve citation metadata, source links, library status, PDF status, one-sentence takeaway, methods, key findings, limitations, relationship to other papers, relevance score, and notes for the final review.
+Use `references/summary-template.md` as the template. Each summary must preserve citation metadata, source links, library status, PDF status, one-sentence takeaway, methods, key findings, mathematical or algorithmic details when relevant, limitations, relationship to other papers, relevance score, and notes for the final review.
 
 Do not overwrite an existing summary casually. If it exists, update it by preserving useful prior notes and adding new evidence, with a short `Update Notes` section when appropriate.
 
