@@ -1,19 +1,17 @@
 # paperflow-codex
 
-`paperflow-codex` is a lightweight Codex skill repository for literature-grounded answers to research and implementation questions.
+`paperflow-codex` is a Codex skill for answering research and implementation questions with literature support.
 
-It is designed to bridge a source request page with a Paperflow-style literature pipeline:
+Use it when you have a source repository and want Codex to answer a question such as:
 
-1. read a source request page,
-2. extract only the source context needed to answer it,
-3. check the user's Google Drive Paperpile library first,
-4. search free web sources for missing literature,
-5. create persistent per-paper summary files,
-6. synthesize a scoped literature review,
-7. return a direct answer, and
-8. propose concrete research or implementation next steps.
+- Why is this model or experiment behaving this way?
+- What does the relevant literature say about this approach?
+- What papers should be summarized before making a design decision?
+- What experiments or implementation changes should come next?
 
-The guiding idea is that an answer should be compiled from saved notes and summary files, not generated directly from a single ad hoc search.
+The skill reads a request file, checks your existing Paperpile / Google Drive papers first, searches the open web only for missing papers, writes one summary per important paper, then writes an answer, review, and proposal.
+
+The important idea is simple: do not jump straight from search results to a final answer. Save the paper summaries and notes that support the answer, so the reasoning can be checked and updated later.
 
 ## One-Line Use
 
@@ -22,6 +20,20 @@ For most requests, this is enough:
 ```text
 Use paperflow-research to answer /path/to/source/request.md.
 ```
+
+The request file should usually live in the source repository:
+
+```text
+<source-repo>/paperflow-requests/<request-slug>.md
+```
+
+The results are written back into that same source repository:
+
+```text
+<source-repo>/paperflow/<request-slug>/
+```
+
+`paperflow-codex` itself only stores the skill instructions and templates.
 
 ## Layout
 
@@ -42,15 +54,38 @@ paperflow-codex/
     example-navigation-request.md
 ```
 
-## Request-Response Workflow
+## How It Works
 
-The preferred input is a source request page inside the source repository. It should state the question, source context, files to read, literature scope, desired answer, and constraints.
+A request file is a Markdown file that tells Codex what question to answer and what source context matters. It can be short. For example:
 
 ```text
-Use paperflow-research to answer /path/to/source/repo/paperflow-requests/<request>.md.
+# Paperflow Request: Shortcut Failure
+
+## Question
+
+Why does the current model avoid the wall but fail to use the open gap as a shortcut?
+
+## Source Files To Read
+
+- README.md
+- src/model.py
+- src/train.py
+- documents/EXPERIMENTS.md
+
+## Literature Scope
+
+- recurrent navigation
+- shortcut learning
+- successor representation
 ```
 
-By default, results are saved in the source repository, next to the work they explain:
+Then ask Codex:
+
+```text
+Use paperflow-research to answer paperflow-requests/shortcut-failure.md.
+```
+
+By default, the skill saves results in the source repository:
 
 ```text
 <source-repo>/
@@ -70,7 +105,24 @@ By default, results are saved in the source repository, next to the work they ex
       run-manifest.yaml
 ```
 
-This keeps the question, the answer, and the supporting notes in the same repository. `paperflow-codex` itself stays small: it only contains the skill and templates.
+This keeps the question, the answer, and the supporting notes beside the code or experiment they explain.
+
+## What Gets Written
+
+- `answer.md`: the direct answer to the request.
+- `summaries/`: one Markdown summary per paper that was actually read.
+- `reviews/review.md`: the literature review built from the summaries.
+- `proposals/`: concrete next experiments or implementation changes.
+- `literature_master.md`: a table and notes that track all papers considered.
+- `paperpile_add_candidates.md`: papers that may be worth adding to Paperpile.
+- `run-log.md`: what was done in this run.
+- `run-manifest.yaml`: status and paths for continuing the run later.
+
+If you later want to add new keywords or papers, use the same folder:
+
+```text
+Use paperflow-research to update paperflow/<request-slug> with keywords "new keyword, another keyword".
+```
 
 Start from:
 
