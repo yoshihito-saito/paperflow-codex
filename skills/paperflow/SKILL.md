@@ -1,9 +1,9 @@
 ---
-name: paperflow-research
-description: Use when Codex is asked to answer a source request page with literature-grounded research, check the user's existing paper library when available, search free web sources for missing papers, create per-paper summaries, synthesize a scoped review, and return an answer plus concrete proposals.
+name: paperflow
+description: Use when Codex is asked to answer a source request page with literature-grounded research, check the user's existing paper library when available, search free web sources for missing papers, create detailed per-paper summaries, synthesize a scoped review, and return an answer plus concrete proposals.
 ---
 
-# Paperflow Research
+# Paperflow
 
 ## Core Principle
 
@@ -20,14 +20,14 @@ Store generated research files in the source repository by default, under `paper
 When the user says something like this, run the full workflow:
 
 ```text
-Use paperflow-research to answer /path/to/source/request.md.
+Use paperflow to answer /path/to/source/paperflow/<request-slug>/request.md.
 ```
 
 If no output location is specified, save the results in the same source repository under `paperflow/<request-slug>/`.
 
 ## Standard Workflow
 
-1. Read the source request page, or create one from `references/source-request-template.md` if the user gives the request in chat.
+1. Read the source request page, or create one at `paperflow/<request-slug>/request.md` from `references/source-request-template.md` if the user gives the request in chat.
 2. Extract the request slug, source repository or source page path, research question, source context, named source files, literature scope, library search terms, and desired answer format.
 3. Create or update the output folder in the source repository: `paperflow/<request-slug>/`.
 4. Create or update `run-manifest.yaml`, `run-log.md`, `literature_master.md`, and `literature_add_candidates.md`.
@@ -56,9 +56,11 @@ The source request page is the contract. It should contain:
 - the desired output
 - constraints and claim boundaries
 
-Use `references/source-request-template.md` for new requests. If the user supplies a source page from another repository, keep the original request in place and copy or normalize it into the output folder only for record keeping:
+Use `references/source-request-template.md` for new requests and save them inside the generated output folder:
 
 `paperflow/<request-slug>/request.md`
+
+If the user supplies a source page from another location, keep the original request in place and copy or normalize it into `paperflow/<request-slug>/request.md` for record keeping.
 
 Do not edit the original source page unless the user explicitly asks.
 
@@ -186,8 +188,6 @@ Use this source-repository structure unless the user requests otherwise:
 
 ```text
 <source-repo>/
-  paperflow-requests/
-    <request-slug>.md
   paperflow/
     <request-slug>/
       request.md

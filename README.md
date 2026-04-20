@@ -1,6 +1,6 @@
 # paperflow-codex
 
-`paperflow-codex` is a Codex skill for answering research and implementation questions with literature support.
+`paperflow-codex` provides the `paperflow` Codex skill for answering research and implementation questions with literature support.
 
 Use it when you have a source repository and want Codex to answer a question such as:
 
@@ -18,19 +18,19 @@ The important idea is simple: do not jump straight from search results to a fina
 In the source repository, first ask Codex to draft the request:
 
 ```text
-Read this repository and write a Paperflow Request for investigating why the latest benchmark changed. Save it as paperflow-requests/benchmark-regression.md.
+Read this repository and write a Paperflow Request for investigating why the latest benchmark changed. Save it as paperflow/benchmark-regression/request.md.
 ```
 
 Then run the research workflow:
 
 ```text
-Use paperflow-research to answer paperflow-requests/benchmark-regression.md.
+Use paperflow to answer paperflow/benchmark-regression/request.md.
 ```
 
-The request file should usually live in the source repository:
+The request file should live inside the generated Paperflow folder in the source repository:
 
 ```text
-<source-repo>/paperflow-requests/<request-slug>.md
+<source-repo>/paperflow/<request-slug>/request.md
 ```
 
 The results are written back into that same source repository:
@@ -46,10 +46,9 @@ The results are written back into that same source repository:
 ```text
 paperflow-codex/
   skills/
-    paperflow-research/
+    paperflow/
       SKILL.md
       references/
-        research-request-template.md
         source-request-template.md
         answer-template.md
         summary-template.md
@@ -63,7 +62,7 @@ paperflow-codex/
 The request file does not need to be written by hand. A good default workflow is to let Codex inspect the source repository and create the first draft:
 
 ```text
-Read this repository and create a Paperflow Request for the main open research or implementation question. Save it as paperflow-requests/<request-slug>.md.
+Read this repository and create a Paperflow Request for the main open research or implementation question. Save it as paperflow/<request-slug>/request.md.
 ```
 
 Codex should write a Markdown file that states the question, source context, files to inspect, literature scope, and constraints. For example:
@@ -98,17 +97,16 @@ Why did the latest implementation improve one benchmark but regress another, and
 After checking the draft request, ask Codex to run the skill:
 
 ```text
-Use paperflow-research to answer paperflow-requests/benchmark-regression.md.
+Use paperflow to answer paperflow/benchmark-regression/request.md.
 ```
 
 By default, the skill saves results in the source repository:
 
 ```text
 <source-repo>/
-  paperflow-requests/
-    <request-slug>.md
   paperflow/
     <request-slug>/
+      request.md
       answer.md
       run-log.md
       literature_master.md
@@ -141,15 +139,15 @@ When equations, definitions, objectives, update rules, or algorithms matter, the
 If you later want to add new keywords or papers, use the same folder:
 
 ```text
-Use paperflow-research to update paperflow/<request-slug> with keywords "new keyword, another keyword".
+Use paperflow to update paperflow/<request-slug> with keywords "new keyword, another keyword".
 ```
 
 Start from:
 
 ```text
-skills/paperflow-research/references/source-request-template.md
-skills/paperflow-research/references/answer-template.md
-skills/paperflow-research/references/run-manifest-template.yaml
+skills/paperflow/references/source-request-template.md
+skills/paperflow/references/answer-template.md
+skills/paperflow/references/run-manifest-template.yaml
 ```
 
 ## Basic Use
@@ -157,29 +155,29 @@ skills/paperflow-research/references/run-manifest-template.yaml
 In the source repository, ask Codex to create a request file:
 
 ```text
-Read this repository and write a Paperflow Request for <question>. Save it as paperflow-requests/<request-slug>.md.
+Read this repository and write a Paperflow Request for <question>. Save it as paperflow/<request-slug>/request.md.
 ```
 
-Then ask Codex to use the `paperflow-research` skill with that source request:
+Then ask Codex to use the `paperflow` skill with that source request:
 
 ```text
-Use paperflow-research to answer paperflow-requests/<request-slug>.md.
+Use paperflow to answer paperflow/<request-slug>/request.md.
 ```
 
-For actual work, the request should usually live in the source repository under `paperflow-requests/<request-slug>.md`. The template at `skills/paperflow-research/references/source-request-template.md` is a reference for what Codex should write.
+For actual work, the request should usually live in the source repository under `paperflow/<request-slug>/request.md`. The template at `skills/paperflow/references/source-request-template.md` is a reference for what Codex should write.
 
 ## Installation As A Codex Skill
 
 For Codex to auto-discover the skill, copy or symlink:
 
 ```text
-<paperflow-codex-path>/skills/paperflow-research
+<paperflow-codex-path>/skills/paperflow
 ```
 
 into:
 
 ```text
-~/.codex/skills/paperflow-research
+~/.codex/skills/paperflow
 ```
 
 This repository keeps the skill source-controlled, while the symlink or copy makes it available to Codex.

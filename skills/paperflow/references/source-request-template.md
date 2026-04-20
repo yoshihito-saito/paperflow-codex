@@ -60,6 +60,7 @@ Summarize the relevant project context, observed behavior, assumptions, and clai
 ## Output
 
 - Default output folder: `paperflow/<request-slug>/`
+- Request file: `paperflow/<request-slug>/request.md`
 
 ## Constraints
 

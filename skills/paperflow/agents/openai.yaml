@@ -1,0 +1,4 @@
+interface:
+  display_name: "Paperflow"
+  short_description: "Repo-aware literature review"
+  default_prompt: "Use paperflow to answer /path/to/source/paperflow/<request-slug>/request.md."
