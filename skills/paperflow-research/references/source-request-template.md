@@ -40,6 +40,7 @@ Summarize the relevant project context, observed behavior, assumptions, and clai
 - Per-paper summaries: up to 20 papers
 - Deep reads: up to 10 papers
 - Reading mode: one paper at a time; write or update its summary before opening the next paper
+- Summary detail: detailed notes by default; use compact synthesis only as an entry point for review writing
 
 ## Local Library Sources
 

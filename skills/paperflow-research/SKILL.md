@@ -117,16 +117,18 @@ Keep the context window lean:
 
 - Do not batch-read many full papers into the same context.
 - Read one paper, write or update its summary, then move to the next paper.
-- Treat saved summaries as the primary input for the review, answer, and proposal.
-- Re-open original papers only when a claim needs verification or a summary is insufficient.
-- Prefer concise summaries over copying long passages from papers.
+- Treat saved summaries as durable notes, not as tiny abstracts.
+- For review, answer, and proposal synthesis, read the compact sections first and then open detailed sections for high-relevance papers.
+- Re-open original papers only when a claim needs verification or the detailed summary is insufficient.
+- Avoid copying long passages from papers, but preserve detailed explanations, equations, methods, evidence, limitations, and source-repository relevance in your own words.
 
 ## Mathematical And Algorithmic Accuracy
 
 When a paper's contribution depends on equations, definitions, objectives, update rules, architectures, or algorithmic assumptions, verify those details from the paper before adding them to the summary.
 
 - Preserve important equations in concise LaTeX form when they are needed for the review or proposal.
-- Record symbol meanings, dimensions, assumptions, loss terms, constraints, and equation numbers when available.
+- Explain each important equation in prose, including symbol meanings, dimensions, assumptions, loss terms, constraints, and equation numbers when available.
+- Include term-by-term intuition and why the equation matters for the source request.
 - Distinguish exact formulas from paraphrased intuition.
 - If an equation, derivation step, or notation is uncertain, mark it as `needs verification` instead of guessing.
 - For algorithms, capture the inputs, outputs, core steps, and any stated complexity or convergence conditions when relevant.
@@ -138,6 +140,14 @@ Create or update one Markdown file for every paper that is read beyond metadata 
 `paperflow/<request-slug>/summaries/<year>-<first-author>-<short-title>.md`
 
 Use `references/summary-template.md` as the template. Each summary must preserve citation metadata, source links, library status, PDF status, one-sentence takeaway, methods, key findings, mathematical or algorithmic details when relevant, limitations, relationship to other papers, relevance score, and notes for the final review.
+
+Do not make all summaries equally short. Scale detail by read status and relevance:
+
+- `metadata only`: citation plus brief reason for inclusion or exclusion.
+- `abstract read`: enough detail to explain the claim, method, and likely relevance.
+- `partial read`: detailed notes on the sections actually read, including evidence and limitations.
+- `full read` or deep-read paper: detailed notes that are usually sufficient for later synthesis without reopening the paper.
+- Math-heavy or algorithm-heavy papers: do not omit the mathematical and algorithmic explanation when it affects the answer.
 
 Do not overwrite an existing summary casually. If it exists, update it by preserving useful prior notes and adding new evidence, with a short `Update Notes` section when appropriate.
 

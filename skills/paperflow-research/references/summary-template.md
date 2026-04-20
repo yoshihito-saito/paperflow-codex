@@ -14,13 +14,20 @@
 - Read status: metadata only / abstract read / partial read / full read
 - Evidence used: metadata / abstract / introduction / methods / results / figures / discussion / full text
 
-## One-Sentence Takeaway
+## Compact Synthesis
 
-Write the paper's main useful claim in one sentence.
+- One-sentence takeaway:
+- Main contribution:
+- Why it matters for this request:
+- Use in final review: include / maybe / exclude
+- Reuse these points:
+  - Point 1:
+  - Point 2:
+  - Point 3:
 
-## Why It Matters
+## Detailed Notes
 
-Explain why this paper matters for the current source request.
+Write detailed notes in your own words. The goal is to preserve enough information that routine review synthesis does not require reopening the paper.
 
 ## Research Question
 
@@ -39,17 +46,35 @@ Use this section when equations, objectives, update rules, architectures, or alg
 
 - Key equations or objectives:
   - Equation:
-  - Meaning:
+  - Exact vs paraphrased: exact / paraphrased intuition / needs verification
   - Source location: section / equation number / page / figure
+  - Purpose:
+  - Term-by-term explanation:
+  - Intuition:
+  - Why it matters for the request:
 - Symbols and dimensions:
   - Symbol:
   - Meaning:
-  - Shape or units:
-- Assumptions or constraints:
-- Algorithm inputs:
-- Algorithm outputs:
-- Core algorithm steps:
+  - Shape, units, or domain:
+- Assumptions, constraints, or boundary conditions:
+- Loss terms, regularizers, or optimization objective:
+- Derivation sketch or dependency on prior equations:
+- Algorithm:
+  - Inputs:
+  - Outputs:
+  - Core steps:
+  - Complexity, convergence, or stability notes:
 - Verification status: checked against paper / needs verification / not applicable
+
+## Experiments And Evidence
+
+- Setup:
+- Baselines:
+- Metrics:
+- Main results:
+- Ablations:
+- Figures or tables to remember:
+  - Source location: section / equation number / page / figure
 
 ## Key Findings
 
@@ -79,15 +104,7 @@ A / B / C
 
 ## Notes For Final Review
 
-Capture phrasing, comparisons, or arguments that should be reused in the synthesis.
-
-## Token-Saving Takeaway
-
-- Use in final review: include / maybe / exclude
-- Reuse these points only:
-  - Point 1:
-  - Point 2:
-  - Point 3:
+Capture phrasing, comparisons, caveats, and arguments that should be reused in the synthesis. This section is a pointer into the detailed notes, not a replacement for them.
 
 ## Update Notes
 
