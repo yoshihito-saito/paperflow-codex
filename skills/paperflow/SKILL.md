@@ -9,7 +9,7 @@ description: Use when Codex is asked to answer a source request page with litera
 
 Treat literature-grounded answering as a reproducible request-response pipeline, not a one-shot answer. The main input is a source request page: a Markdown page from a source repository, notes folder, or user-provided path that states a question, source context, relevant files, and desired output.
 
-Preserve intermediate files inside the source repository: copied/normalized request, per-paper summaries, literature master, scoped review, answer, proposal, run log, and literature add candidates.
+Preserve durable research artifacts inside the source repository: copied or normalized request, per-paper summaries, scoped review, run manifest, run log, and literature add candidates. Return the final answer and proposal in chat by default instead of creating standalone `answer.md`, `proposal.md`, `literature_master.md`, or `source_context.md` files unless the user explicitly asks for them.
 
 Use the request page as authoritative. Read only the source files named in the request unless the request is underspecified or the user asks for broader inspection. Source context extraction supports the answer; it is not the primary goal.
 
@@ -30,17 +30,17 @@ If no output location is specified, save the results in the same source reposito
 1. Read the source request page, or create one at `paperflow/<request-slug>/request.md` from `references/source-request-template.md` if the user gives the request in chat.
 2. Extract the request slug, source repository or source page path, research question, source context, named source files, literature scope, library search terms, and desired answer format.
 3. Create or update the output folder in the source repository: `paperflow/<request-slug>/`.
-4. Create or update `run-manifest.yaml`, `run-log.md`, `literature_master.md`, and `literature_add_candidates.md`.
+4. Create or update `run-manifest.yaml`, `run-log.md`, and `literature_add_candidates.md`.
 5. Read only the source files named in the request. If no files are named and the source context is insufficient, do a narrow fallback read of `README*`, cited docs, or obvious config/model files.
 6. Check available paper-library sources first. Use Google Drive / Paperpile when available; otherwise check local bibliography and notes files in the source repository.
 7. Reuse existing metadata, notes, summaries, PDFs, and BibTeX entries when available.
 8. Deduplicate papers before web search using DOI, arXiv ID, PMID, then normalized title.
 9. Search free web sources only for gaps: arXiv, PubMed, OpenAlex, Crossref, publisher pages, author pages, GitHub, and project pages.
 10. Process papers one at a time. After reading each paper beyond metadata level, immediately create or update its Markdown summary before opening the next paper.
-11. Build or update `literature_master.md` from the paper summaries.
-12. Synthesize a scoped review for the request.
-13. Produce an answer that directly responds to the request, with links to the supporting files.
-14. Produce a proposal with concrete experiments, implementation changes, or decision points when the request asks for next steps.
+11. Synthesize a scoped review for the request from the paper summaries.
+12. Produce an answer that directly responds to the request, with links to the supporting files, and return it in chat unless the user explicitly asks for a saved answer file.
+13. Produce a proposal with concrete experiments, implementation changes, or decision points when the request asks for next steps, and return it in chat unless the user explicitly asks for a saved proposal file.
+14. Do not create standalone `source_context.md` or `literature_master.md` files unless the user explicitly requests persisted copies.
 15. Update `run-manifest.yaml` and `run-log.md`.
 16. Suggest papers to add to the user's library, but do not add, upload, move, rename, or delete files without explicit user approval.
 
@@ -74,7 +74,7 @@ Source context extraction is narrow and request-guided. Start with files named i
 - model, environment, dataset, and training code
 - configuration files
 
-If the request already contains enough context, source file reads may be minimal. If the request is underspecified, read the smallest set of source files needed to answer accurately, then record what was inspected in the answer and proposal.
+If the request already contains enough context, source file reads may be minimal. If the request is underspecified, read the smallest set of source files needed to answer accurately, then record what was inspected in the answer and proposal. Do not create a separate `source_context.md` file unless the user explicitly asks for one.
 
 ## Existing-Library-First Literature Search
 
@@ -118,17 +118,32 @@ Use `standard` depth by default unless the request specifies otherwise:
 Keep the context window lean:
 
 - Do not batch-read many full papers into the same context.
+- Read the whole paper section by section when full-paper reading is needed.
+- Do not load the entire paper into one model context.
+- For each section, write section-level notes before moving to the next section.
+- Preserve detailed notes for sections relevant to the request.
+- For less relevant sections, write a concise coverage note explaining what was checked.
+- The goal is not to skip the paper, but to keep the active context small while preserving full-paper coverage.
 - Read one paper, write or update its summary, then move to the next paper.
 - Treat saved summaries as durable notes, not as tiny abstracts.
 - For review, answer, and proposal synthesis, read the compact sections first and then open detailed sections for high-relevance papers.
 - Re-open original papers only when a claim needs verification or the detailed summary is insufficient.
 - Avoid copying long passages from papers, but preserve detailed explanations, equations, methods, evidence, limitations, and source-repository relevance in your own words.
+- When PDF-to-Markdown or JSON extraction is used, do not pass raw extracted output directly into the model context.
+- Clean boilerplate, references, repeated headers or footers, and OCR artifacts first when possible.
+- Then process the cleaned paper section by section.
+- Use extracted JSON primarily for source locations, equations, figures, and tables when needed.
+- Use the cheapest capable model by default for metadata extraction, PDF or Markdown cleanup, section-level notes, ordinary empirical paper summaries, and citation normalization.
+- Escalate to a stronger reasoning model only when the paper or section is high relevance, math-heavy, theory-heavy, proof-heavy, algorithmically central, marked `needs verification`, or used as primary evidence in the final review.
+- Do not use a stronger reasoning model for raw PDF reading by default.
+- Use stronger reasoning only for targeted verification, mathematical or algorithmic sections, and final synthesis when needed.
 
 ## Mathematical And Algorithmic Accuracy
 
 When a paper's contribution depends on equations, definitions, objectives, update rules, architectures, or algorithmic assumptions, verify those details from the paper before adding them to the summary.
 
 - Preserve important equations in concise LaTeX form when they are needed for the review or proposal.
+- Write important equations directly into the per-paper summary when they matter for the request, not just a prose reference to them.
 - Explain each important equation in prose, including symbol meanings, dimensions, assumptions, loss terms, constraints, and equation numbers when available.
 - Include term-by-term intuition and why the equation matters for the source request.
 - Distinguish exact formulas from paraphrased intuition.
@@ -149,20 +164,18 @@ Do not make all summaries equally short. Scale detail by read status and relevan
 - `abstract read`: enough detail to explain the claim, method, and likely relevance.
 - `partial read`: detailed notes on the sections actually read, including evidence and limitations.
 - `full read` or deep-read paper: detailed notes that are usually sufficient for later synthesis without reopening the paper.
-- Math-heavy or algorithm-heavy papers: do not omit the mathematical and algorithmic explanation when it affects the answer.
+- Math-heavy or algorithm-heavy papers: do not omit the mathematical and algorithmic explanation when it affects the answer, and write the key equations into the summary with explanation.
 
 Do not overwrite an existing summary casually. If it exists, update it by preserving useful prior notes and adding new evidence, with a short `Update Notes` section when appropriate.
 
 ## Review, Answer, And Proposal
 
-Generate the review, answer, and proposal only after the relevant per-paper summaries exist. Use:
+Generate the review first, then prepare the answer and proposal from the review and summaries. Use:
 
 - `references/review-template.md` for literature synthesis.
-- `references/answer-template.md` for the request answer.
-- `references/proposal-template.md` for project diagnosis and next steps.
 - `references/run-manifest-template.yaml` for run metadata.
 
-The answer should be the user-facing result. It should include:
+The answer should be the user-facing result returned in chat by default. It should include:
 
 - direct answer
 - confidence and scope
@@ -170,9 +183,9 @@ The answer should be the user-facing result. It should include:
 - literature evidence
 - synthesis of mechanisms
 - concrete recommendations
-- links to summaries, review, and proposal
+- links to summaries and review, plus proposal details when relevant
 
-The proposal should connect literature to the source repository. It should include:
+The proposal should connect literature to the source repository. It should be returned in chat by default and include:
 
 - source context used
 - key literature themes
@@ -181,6 +194,8 @@ The proposal should connect literature to the source repository. It should inclu
 - actionable experiments or implementation changes
 - risks and validation checks
 - literature add candidates
+
+Only create a saved answer or proposal file when the user explicitly asks for persisted deliverables.
 
 ## Output Layout
 
@@ -191,19 +206,15 @@ Use this source-repository structure unless the user requests otherwise:
   paperflow/
     <request-slug>/
       request.md
-      answer.md
       run-manifest.yaml
       run-log.md
-      literature_master.md
       literature_add_candidates.md
       summaries/
       reviews/
         review.md
-      proposals/
-        YYYY-MM-DD-<topic>.md
 ```
 
-Keep generated output files inside the source repository so the answer travels with the code, notes, and experiments it explains.
+Keep generated output files inside the source repository so the supporting research travels with the code, notes, and experiments it explains. Return the main answer and proposal in chat unless the user requests saved files.
 
 ## Continuing Prior Local Work
 
@@ -211,13 +222,12 @@ When a user asks to continue a prior answer in the same repository:
 
 1. Read the source request page.
 2. Check `paperflow/<request-slug>/run-manifest.yaml`.
-3. Read the existing answer and supporting files as needed:
+3. Read the existing review, summaries, and run log as needed:
 
 ```text
 paperflow/<request-slug>/
-  answer.md
-  literature_master.md
   run-log.md
+  reviews/review.md
   summaries/
 ```
 
@@ -226,6 +236,6 @@ paperflow/<request-slug>/
 - Do not add PDFs or metadata to Paperpile, Zotero, BibTeX files, or any other library automatically.
 - If a useful paper has no local PDF, suggest downloading or adding it, but do not download, upload, or move it without explicit approval.
 - Do not upload, delete, rename, or move Google Drive files without explicit approval.
-- Do not modify source code, configs, data, or experiment files unless the user explicitly requests implementation. Writing `paperflow/<request-slug>/` output files is allowed as part of this skill.
+- Do not modify source code, configs, data, or experiment files unless the user explicitly requests implementation. Writing `paperflow/<request-slug>/` support files is allowed as part of this skill, but do not create `answer.md`, `proposal.md`, `literature_master.md`, or `source_context.md` unless explicitly requested.
 - Be clear when a paper was found but not fully read.
 - Use exact citations, DOI, arXiv ID, or URLs whenever available.

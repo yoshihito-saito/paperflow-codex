@@ -3,14 +3,12 @@ title: "<human readable request title>"
 source_repository: "/absolute/path/to/source/repository"
 output_dir: "paperflow/<request-slug>"
 request: "request.md"
-answer: "answer.md"
-literature_master: "literature_master.md"
 summaries_dir: "summaries"
 review: "reviews/review.md"
-proposals:
-  dir: "proposals"
-  latest: ""
 literature_add_candidates: "literature_add_candidates.md"
+chat_deliverables:
+  answer: "returned_in_chat_by_default"
+  proposal: "returned_in_chat_by_default"
 research_depth:
   preset: "standard" # quick / standard / deep / custom
   candidate_scan_limit: 40
@@ -29,7 +27,7 @@ status:
   literature_search: "not_started"
   summaries: "not_started"
   review: "not_started"
-  answer: "not_started"
-  proposal: "not_started"
+  final_response: "not_started"
+  recommendations: "not_started"
 updated: "YYYY-MM-DD"
 notes: ""

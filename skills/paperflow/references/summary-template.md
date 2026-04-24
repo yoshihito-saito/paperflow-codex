@@ -42,7 +42,7 @@ What question does the paper try to answer?
 
 ## Mathematical And Algorithmic Details
 
-Use this section when equations, objectives, update rules, architectures, or algorithmic assumptions matter for the request.
+Use this section when equations, objectives, update rules, architectures, or algorithmic assumptions matter for the request. Write the key equations directly into the summary in concise LaTeX form and explain them in prose.
 
 - Key equations or objectives:
   - Equation:
