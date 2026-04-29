@@ -36,13 +36,17 @@ If no output location is specified, save the results in the same source reposito
 7. Reuse existing metadata, notes, summaries, PDFs, and BibTeX entries when available.
 8. Deduplicate papers before web search using DOI, arXiv ID, PMID, then normalized title.
 9. Search free web sources only for gaps: arXiv, PubMed, OpenAlex, Crossref, publisher pages, author pages, GitHub, and project pages.
-10. Process papers one at a time. After reading each paper beyond metadata level, immediately create or update its Markdown summary before opening the next paper.
-11. Synthesize a scoped review for the request from the paper summaries.
-12. Produce an answer that directly responds to the request, with links to the supporting files, and return it in chat unless the user explicitly asks for a saved answer file.
-13. Produce a proposal with concrete experiments, implementation changes, or decision points when the request asks for next steps, and return it in chat unless the user explicitly asks for a saved proposal file.
-14. Do not create standalone `source_context.md` or `literature_master.md` files unless the user explicitly requests persisted copies.
-15. Update `run-manifest.yaml` and `run-log.md`.
-16. Suggest papers to add to the user's library, but do not add, upload, move, rename, or delete files without explicit user approval.
+10. Prioritize papers for reading depth before summarizing: core papers, supporting papers, background papers, and exclusions.
+11. Process papers one at a time. After reading each paper beyond metadata level, immediately create or update its Markdown summary before opening the next paper.
+12. For every core paper, write section-by-section notes before using it as evidence in the review. Do not treat a short abstract-style note as a completed summary for a core paper.
+13. Run the per-paper summary quality check from `references/summary-template.md`; mark incomplete summaries clearly and do not rely on them for strong claims.
+14. Synthesize a scoped review for the request from the paper summaries. Major review claims should trace back to summary files, not to uncaptured memory of papers.
+15. Run the review output compliance check against the requested output and quality constraints in `request.md`.
+16. Produce an answer that directly responds to the request, with links to the supporting files, and return it in chat unless the user explicitly asks for a saved answer file.
+17. Produce a proposal with concrete experiments, implementation changes, or decision points when the request asks for next steps, and return it in chat unless the user explicitly asks for a saved proposal file.
+18. Do not create standalone `source_context.md` or `literature_master.md` files unless the user explicitly requests persisted copies.
+19. Update `run-manifest.yaml` and `run-log.md`.
+20. Suggest papers to add to the user's library, but do not add, upload, move, rename, or delete files without explicit user approval.
 
 ## Source Request Handling
 
@@ -109,11 +113,28 @@ For each web result, separate metadata-level knowledge from content that has act
 
 ## Research Depth And Token Budget
 
-Use `standard` depth by default unless the request specifies otherwise:
+Use `standard` depth by default unless the request specifies otherwise. Depth controls both the number of papers screened and the thickness of notes for high-priority papers; `deep` must not mean many shallow summaries.
 
 - `quick`: scan up to 20 candidate papers, summarize up to 5 papers, deeply read up to 2 papers.
-- `standard`: scan up to 40 candidate papers, summarize up to 20 papers, deeply read up to 10 papers.
-- `deep`: scan 50 or more candidate papers when useful, summarize up to 25 papers, deeply read up to 15 papers.
+- `standard`: scan up to 40 candidate papers, summarize up to 20 papers, deeply read up to 10 papers. Core papers should receive at least `section-level read` notes when their full text is available.
+- `deep`: scan 50 or more candidate papers when useful, summarize up to 25 papers, deeply read up to 15 papers. Core papers must receive `deep read with section notes` when their full text is available; high-value supporting papers should receive at least `section-level read` notes.
+
+Use these read-status labels consistently:
+
+- `metadata only`: citation or index record only; do not use for substantive claims.
+- `abstract only`: abstract and metadata read; use only for tentative inclusion, exclusion, or gap notes.
+- `skimmed full text`: full text opened and selectively inspected; use only for low-stakes support unless source locations are recorded.
+- `section-level read`: relevant paper sections read and summarized separately with source locations.
+- `deep read with section notes`: abstract, introduction, methods, results, discussion, important figures/tables, and relevant supplement checked and summarized section by section.
+
+Before reading, assign each candidate a priority:
+
+- `core`: central to the answer, proposal, or evidence table.
+- `supporting`: useful but not load-bearing.
+- `background`: framing, methods, or historical context.
+- `exclude`: screened out with a reason.
+
+Core papers require section-by-section summaries before review synthesis. If full text is unavailable, explicitly downgrade the evidence strength and list the paper in `literature_add_candidates.md`.
 
 Keep the context window lean:
 
@@ -134,19 +155,22 @@ Keep the context window lean:
 - Then process the cleaned paper section by section.
 - Use extracted JSON primarily for source locations, equations, figures, and tables when needed.
 - Use the cheapest capable model by default for metadata extraction, PDF or Markdown cleanup, section-level notes, ordinary empirical paper summaries, and citation normalization.
-- Escalate to a stronger reasoning model only when the paper or section is high relevance, math-heavy, theory-heavy, proof-heavy, algorithmically central, marked `needs verification`, or used as primary evidence in the final review.
+- Use a stronger reasoning model for core papers or sections that are math-heavy, theory-heavy, proof-heavy, algorithmically central, marked `needs verification`, or used as primary evidence in the final review.
+- For theoretical papers that are core to the answer, use a stronger reasoning model for the model setup, assumptions, definitions, key equations, derivations, propositions, proofs, and request-specific interpretation.
 - Do not use a stronger reasoning model for raw PDF reading by default.
-- Use stronger reasoning only for targeted verification, mathematical or algorithmic sections, and final synthesis when needed.
+- Use stronger reasoning for targeted verification, mathematical or algorithmic sections, theoretical sections, proof checks, and final synthesis when needed.
 
 ## Mathematical And Algorithmic Accuracy
 
 When a paper's contribution depends on equations, definitions, objectives, update rules, architectures, or algorithmic assumptions, verify those details from the paper before adding them to the summary.
 
 - Preserve important equations in concise LaTeX form when they are needed for the review or proposal.
-- Write important equations directly into the per-paper summary when they matter for the request, not just a prose reference to them.
-- Explain each important equation in prose, including symbol meanings, dimensions, assumptions, loss terms, constraints, and equation numbers when available.
+- Write important equations directly into the per-paper summary when they matter for the request, not just a prose reference to them. For core theoretical papers, include the central model equations even when the final answer will only use the intuition.
+- Explain each important equation in prose, including symbol meanings, dimensions, assumptions, loss terms, constraints, boundary conditions, and equation numbers when available.
 - Include term-by-term intuition and why the equation matters for the source request.
 - Distinguish exact formulas from paraphrased intuition.
+- For derivations, summarize the logical dependency: which definitions, assumptions, lemmas, approximations, or optimization steps lead to the result.
+- For propositions, theorems, or proofs, record the statement, proof strategy, key assumptions, and where the result is used in the paper. Mark proof steps that were not checked as `needs verification`.
 - If an equation, derivation step, or notation is uncertain, mark it as `needs verification` instead of guessing.
 - For algorithms, capture the inputs, outputs, core steps, and any stated complexity or convergence conditions when relevant.
 
@@ -156,15 +180,27 @@ Create or update one Markdown file for every paper that is read beyond metadata 
 
 `paperflow/<request-slug>/summaries/<year>-<first-author>-<short-title>.md`
 
-Use `references/summary-template.md` as the template. Each summary must preserve citation metadata, source links, library status, PDF status, one-sentence takeaway, methods, key findings, mathematical or algorithmic details when relevant, limitations, relationship to other papers, relevance score, and notes for the final review.
+Use `references/summary-template.md` as the template. Each summary must preserve citation metadata, source links, library status, PDF status, read status, evidence strength, one-sentence takeaway, section-by-section notes when required, methods, key findings, mathematical or algorithmic details when relevant, limitations, extrapolation boundaries, relationship to other papers, relevance score, and notes for the final review.
+
+The summary is a durable paper card, not an abstract. For core papers, it should explain what the paper actually did section by section: question, apparatus or dataset, subjects, task structure, manipulations, measurements, analyses, main results, key figures/tables, limitations, and request-specific implications.
 
 Do not make all summaries equally short. Scale detail by read status and relevance:
 
 - `metadata only`: citation plus brief reason for inclusion or exclusion.
-- `abstract read`: enough detail to explain the claim, method, and likely relevance.
-- `partial read`: detailed notes on the sections actually read, including evidence and limitations.
-- `full read` or deep-read paper: detailed notes that are usually sufficient for later synthesis without reopening the paper.
-- Math-heavy or algorithm-heavy papers: do not omit the mathematical and algorithmic explanation when it affects the answer, and write the key equations into the summary with explanation.
+- `abstract only`: enough detail to explain the claim, method, and likely relevance, but mark evidence as tentative.
+- `skimmed full text`: identify which sections and figures were inspected and why the paper is not core.
+- `section-level read`: detailed notes on each section actually read, including source locations, evidence, and limitations.
+- `deep read with section notes`: detailed notes that are usually sufficient for later synthesis without reopening the paper.
+- Math-heavy, theory-heavy, proof-heavy, or algorithm-heavy papers: do not omit the mathematical, theoretical, proof, or algorithmic explanation when it affects the answer. Write the key equations, assumptions, definitions, derivation dependencies, propositions, and algorithm steps into the summary with explanation.
+
+Minimum quality gate:
+
+- A core-paper summary may not be only a citation plus a few bullets.
+- A summary that lacks methods, results, limitations, and request-specific relevance should be marked incomplete.
+- A paper cannot support a strong review claim unless the summary records the relevant evidence and source location.
+- For empirical papers used in proposals, the summary must capture task structure, manipulations, measurements, and analysis logic.
+- For theoretical papers used in the review, the summary must capture the model setup, assumptions, key equations, what each term means, central result, proof or derivation sketch, limitations, and request-specific interpretation.
+- For requests asking for proposals, decisions, predictions, or experiment design, summaries must state which request-specific variables, controls, assumptions, evaluation criteria, or expected outcomes the paper informs.
 
 Do not overwrite an existing summary casually. If it exists, update it by preserving useful prior notes and adding new evidence, with a short `Update Notes` section when appropriate.
 
@@ -174,6 +210,18 @@ Generate the review first, then prepare the answer and proposal from the review 
 
 - `references/review-template.md` for literature synthesis.
 - `references/run-manifest-template.yaml` for run metadata.
+
+The review must be traceable to summaries. Include an evidence table when the request asks for a report, recommendation, proposal, prediction, or decision. Distinguish direct evidence from extrapolation along the dimensions that matter for the request, such as species, setting, population, dataset, task, method, measurement, intervention, implementation context, or analysis method.
+
+Before finalizing the review, compare it against `request.md`:
+
+- every requested output section is present or explicitly marked out of scope
+- every requested topic is addressed
+- concrete request-specific deliverables are included when requested
+- predictions, decisions, recommendations, or next steps are organized by the request's relevant units when requested
+- practical recommendations include controls, risks, and validation checks when requested
+- major claims link back to per-paper summaries
+- direct evidence, close analogs, theory, and speculation are separated
 
 The answer should be the user-facing result returned in chat by default. It should include:
 

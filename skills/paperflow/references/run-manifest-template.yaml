@@ -15,6 +15,20 @@ research_depth:
   summary_limit: 20
   deep_read_limit: 10
   reading_mode: "one_paper_at_a_time"
+  read_status_labels:
+    - "metadata only"
+    - "abstract only"
+    - "skimmed full text"
+    - "section-level read"
+    - "deep read with section notes"
+  core_paper_requirement: "section-level read or deeper when full text is available"
+  quality_gate: "core summaries must include section-by-section notes, methods, results, limitations, request relevance, and source locations"
+  stronger_reasoning_required_for:
+    - "core theoretical papers"
+    - "math-heavy sections"
+    - "proof-heavy sections"
+    - "algorithmically central sections"
+    - "needs verification claims"
 library:
   provider: "unknown" # google_drive_paperpile / local_bibtex / source_notes / none / unknown
   priority: "paperpile_when_available"
@@ -22,11 +36,25 @@ library:
   folder: ""
   files: []
   notes: ""
+paper_reading:
+  # Add one item per screened or summarized paper.
+  - title: ""
+    priority: "core" # core / supporting / background / exclude
+    read_status: "metadata only"
+    summary: "summaries/<year>-<first-author>-<short-title>.md"
+    full_text_available: false
+    section_notes_complete: false
+    stronger_reasoning_used: false
+    math_or_theory_notes_complete: false
+    quality_check: "not_started" # pass / incomplete / not_applicable / not_started
+    evidence_strength: "unknown" # direct / close_analog / methodological / theory / extrapolation / weak / unknown
+    notes: ""
 status:
   source_context: "not_started"
   literature_search: "not_started"
   summaries: "not_started"
   review: "not_started"
+  review_compliance_check: "not_started"
   final_response: "not_started"
   recommendations: "not_started"
 updated: "YYYY-MM-DD"
