@@ -147,7 +147,7 @@ Keep the context window lean:
 - The goal is not to skip the paper, but to keep the active context small while preserving full-paper coverage.
 - Read one paper, write or update its summary, then move to the next paper.
 - Treat saved summaries as durable notes, not as tiny abstracts.
-- For review, answer, and proposal synthesis, read the compact sections first and then open detailed sections for high-relevance papers.
+- For review, answer, and proposal synthesis, read the compact synthesis subsection inside each per-paper summary first and then open the detailed sections for high-relevance papers.
 - Re-open original papers only when a claim needs verification or the detailed summary is insufficient.
 - Avoid copying long passages from papers, but preserve detailed explanations, equations, methods, evidence, limitations, and source-repository relevance in your own words.
 - When PDF-to-Markdown or JSON extraction is used, do not pass raw extracted output directly into the model context.
@@ -184,6 +184,8 @@ Use `references/summary-template.md` as the template. Each summary must preserve
 
 The summary is a durable paper card, not an abstract. For core papers, it should explain what the paper actually did section by section: question, apparatus or dataset, subjects, task structure, manipulations, measurements, analyses, main results, key figures/tables, limitations, and request-specific implications.
 
+Do not replace per-paper summaries with a single compact digest file. Files such as `core-literature-compact.md` may be created only as optional navigation aids after the per-paper summaries exist, never instead of them.
+
 Do not make all summaries equally short. Scale detail by read status and relevance:
 
 - `metadata only`: citation plus brief reason for inclusion or exclusion.
@@ -201,6 +203,7 @@ Minimum quality gate:
 - For empirical papers used in proposals, the summary must capture task structure, manipulations, measurements, and analysis logic.
 - For theoretical papers used in the review, the summary must capture the model setup, assumptions, key equations, what each term means, central result, proof or derivation sketch, limitations, and request-specific interpretation.
 - For requests asking for proposals, decisions, predictions, or experiment design, summaries must state which request-specific variables, controls, assumptions, evaluation criteria, or expected outcomes the paper informs.
+- A run that produces only a single combined summary file, or that omits `reviews/review.md` when a review was requested, is incomplete.
 
 Do not overwrite an existing summary casually. If it exists, update it by preserving useful prior notes and adding new evidence, with a short `Update Notes` section when appropriate.
 

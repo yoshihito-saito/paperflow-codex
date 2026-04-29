@@ -132,7 +132,7 @@ This keeps the question, the answer, and the supporting notes beside the code or
 - `run-log.md`: what was done in this run.
 - `run-manifest.yaml`: status and paths for continuing the run later.
 
-By default, a standard run scans up to 40 candidate papers, writes summaries for up to 20 papers, and deeply reads up to 10 papers. The skill processes papers one at a time: read one paper, write or update its summary, then move to the next paper. Summaries are detailed notes by default; compact synthesis sections are used as entry points so final review writing can stay efficient without losing evidence.
+By default, a standard run scans up to 40 candidate papers, writes summaries for up to 20 papers, and deeply reads up to 10 papers. The skill processes papers one at a time: read one paper, write or update its summary, then move to the next paper. Summaries are detailed notes by default. Compact synthesis belongs inside each per-paper summary as an entry point for review writing, not as a replacement for the summary set or the review artifact.
 
 When equations, definitions, objectives, update rules, or algorithms matter, the skill should check them against the paper and preserve the verified details in the relevant per-paper summary.
 
