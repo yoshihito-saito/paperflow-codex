@@ -55,7 +55,14 @@ status:
   summaries: "not_started"
   review: "not_started"
   review_compliance_check: "not_started"
+  required_artifacts_check: "not_started"
   final_response: "not_started"
   recommendations: "not_started"
+required_artifacts:
+  request: true
+  per_paper_summaries: true
+  review: true
+  run_log: true
+  literature_add_candidates: true
 updated: "YYYY-MM-DD"
 notes: ""
