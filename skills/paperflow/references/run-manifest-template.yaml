@@ -3,6 +3,7 @@ title: "<human readable request title>"
 source_repository: "/absolute/path/to/source/repository"
 output_dir: "paperflow/<request-slug>"
 request: "request.md"
+canonical_bibliography: "/absolute/path/to/paperpile-library.bib"
 summaries_dir: "summaries"
 review: "reviews/review.md"
 literature_add_candidates: "literature_add_candidates.md"
@@ -35,6 +36,13 @@ library:
   checked: false
   folder: ""
   files: []
+  canonical_bibliography_exists: false
+  canonical_bibliography_created_this_run: false
+  canonical_bibliography_incremental_update: false
+  canonical_bibliography_added: 0
+  canonical_bibliography_updated: 0
+  canonical_bibliography_removed: 0
+  canonical_bibliography_missing_message_emitted: false
   notes: ""
 paper_reading:
   # Add one item per screened or summarized paper.
@@ -52,6 +60,7 @@ paper_reading:
 status:
   source_context: "not_started"
   literature_search: "not_started"
+  bibliography_sync: "not_started"
   summaries: "not_started"
   review: "not_started"
   review_compliance_check: "not_started"

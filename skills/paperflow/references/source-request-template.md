@@ -45,6 +45,7 @@ Summarize the relevant project context, observed behavior, assumptions, and clai
 ## Local Library Sources
 
 - Paperpile / Google Drive folder:
+- Canonical Paperpile bibliography path:
 - Local bibliography files:
 - Existing notes or literature lists:
 
@@ -66,9 +67,13 @@ Summarize the relevant project context, observed behavior, assumptions, and clai
 
 - Use existing paper-library sources before web search when available.
 - If Paperpile / Google Drive is available, search it first.
+- Use the canonical shared Paperpile `.bib` path when configured.
+- If the canonical `.bib` file is missing and library access is available, create it once there.
+- If the canonical `.bib` file exists and library access is available, update only changed entries instead of regenerating the whole file.
+- If the canonical `.bib` file cannot be found or accessed in the session, show a clear message that the Paperpile bibliography could not be found and record the issue in the run log.
 - Use free web sources for missing papers.
 - If a useful paper has no local PDF, mark it as missing and suggest downloading or adding the PDF.
 - If equations, definitions, or algorithms matter, check them against the paper and include the verified details in the per-paper summary.
 - Do not modify source code, configs, data, or experiment files unless explicitly requested.
-- Do not add PDFs or metadata to Paperpile, Zotero, BibTeX files, or another library without approval.
+- Do not modify Paperpile, Zotero, or another upstream library without approval. Updating the canonical shared `.bib` file is allowed.
 - Be explicit about which source files were read.
