@@ -45,7 +45,7 @@ Summarize the relevant project context, observed behavior, assumptions, and clai
 ## Local Library Sources
 
 - Paperpile / Google Drive folder:
-- Canonical Paperpile bibliography path:
+- Canonical Paperpile bibliography path: `Google Drive/Paperpile/references.bib`
 - Local bibliography files:
 - Existing notes or literature lists:
 
@@ -67,7 +67,7 @@ Summarize the relevant project context, observed behavior, assumptions, and clai
 
 - Use existing paper-library sources before web search when available.
 - If Paperpile / Google Drive is available, search it first.
-- Use the canonical shared Paperpile `.bib` path when configured.
+- Use the canonical shared Paperpile `.bib` path when configured. By default this should be `Google Drive/Paperpile/references.bib`.
 - If the canonical `.bib` file is missing and library access is available, create it once there.
 - If the canonical `.bib` file exists and library access is available, update only changed entries instead of regenerating the whole file.
 - If the canonical `.bib` file cannot be found or accessed in the session, show a clear message that the Paperpile bibliography could not be found and record the issue in the run log.

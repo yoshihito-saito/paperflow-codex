@@ -28,7 +28,7 @@ Use the templates in `references/` for request, summary, review, and run-manifes
 1. Read or create `paperflow/<request-slug>/request.md`.
 2. Create or update `run-manifest.yaml`, `run-log.md`, and `literature_add_candidates.md`.
 3. Read only the source files named in the request unless the request is underspecified.
-4. Check the canonical shared Paperpile bibliography path from the request or manifest.
+4. Check the canonical shared Paperpile bibliography path from the request or manifest. By default this should be the Google Drive `Paperpile/references.bib` file.
 5. If the canonical `.bib` file exists and is accessible, update only changed entries.
 6. If the canonical `.bib` path is configured but the file is missing and library access is available, create it once there.
 7. If the canonical `.bib` path cannot be found or accessed in the session, show a clear user-visible message that the Paperpile bibliography could not be found, and record the exact issue in `run-log.md` and `run-manifest.yaml`.
@@ -41,7 +41,7 @@ Use the templates in `references/` for request, summary, review, and run-manifes
 
 ## Library Rules
 
-- Prefer one shared canonical `.bib` file in the Paperpile / Google Drive folder.
+- Prefer one shared canonical `.bib` file named `references.bib` in the Google Drive `Paperpile` folder.
 - Do not silently replace the canonical bibliography with a newly generated project-local bibliography.
 - Project-local `.bib` files may be used only when they already exist as separate project materials, not as an automatic fallback.
 - Update the canonical `.bib` incrementally, not by rewriting the entire file from scratch.
