@@ -1,6 +1,6 @@
 ---
 name: paperflow
-description: Use when Codex is asked to answer a source request page with literature-grounded research, check the user's existing paper library when available, search free web sources for missing papers, create detailed per-paper summaries, synthesize a scoped review, and return an answer plus concrete proposals.
+description: Use when Codex is asked to answer a source request page with literature-grounded research, check the user's existing paper library when available, search free web sources for missing papers, create detailed per-paper summaries, synthesize a scoped review, and return a direct answer in chat plus concrete proposals.
 ---
 
 # Paperflow
@@ -37,7 +37,7 @@ Use the templates in `references/` for request, summary, review, and run-manifes
 10. Assign paper priority before deep reading: `core`, `supporting`, `background`, or `exclude`.
 11. Read one paper at a time and write or update its summary before moving to the next paper.
 12. Build the review from the per-paper summaries.
-13. Return the answer and proposal in chat by default unless persisted files are explicitly requested.
+13. Return the direct answer and proposal in chat by default unless persisted files are explicitly requested.
 
 ## Library Rules
 

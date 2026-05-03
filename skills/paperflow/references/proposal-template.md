@@ -1,59 +1,65 @@
 # Proposal: <topic>
 
+## Proposal Overview
+
+- Problem being addressed:
+- Why action is needed now:
+- Main proposal:
+- Evidence basis:
+- Main uncertainty:
+
 ## Source Context Used
 
-List the source request page, source files read, and the relevant findings from each.
+- Request page:
+- Source files read:
+- Most relevant source findings:
 
-## Problem Statement
+## Literature Basis
 
-State the request's problem as precisely as possible.
+- Strongest supporting papers:
+- What the literature supports directly:
+- What is extrapolated:
+- Key limitations:
 
-## Literature Grounding
+## Recommended Plan
 
-Summarize the literature themes that matter for this problem.
+### Plan 1
 
-## Diagnosis
-
-Explain likely causes, missing assumptions, or failure modes in the current approach.
-
-## Hypotheses
-
-- Hypothesis 1:
-- Hypothesis 2:
-- Hypothesis 3:
-
-## Proposed Solutions
-
-### Solution 1
-
-- Rationale:
-- Implementation idea:
+- What to change or test:
+- Why this is the best next step:
 - Expected outcome:
-- Risks:
+- Main risk:
+- Validation check:
 
-### Solution 2
+### Plan 2
 
-- Rationale:
-- Implementation idea:
+- What to change or test:
+- Why this is a good backup or complement:
 - Expected outcome:
-- Risks:
+- Main risk:
+- Validation check:
 
-## Next Experiments
+## Experiments Or Decision Steps
 
-- Experiment 1:
-- Experiment 2:
-- Experiment 3:
+- Step 1:
+- Step 2:
+- Step 3:
 
-## Validation Checks
+## Failure Modes And Safeguards
 
-- Check 1:
-- Check 2:
-- Check 3:
+- Failure mode:
+  - Why it could happen:
+  - How to detect it:
+  - How to reduce the risk:
+
+## Open Decisions
+
+- Decision:
+- Why it matters:
+- Recommended default:
 
 ## Literature Add Candidates
 
-Link to `literature_add_candidates.md` and summarize the top additions, especially papers with `PDF missing` that should be downloaded or added to the user's library.
-
-## Decision Points
-
-List decisions the user should make before implementation.
+- Link:
+- Top additions that would most improve confidence:
+- Missing PDFs to download or add:

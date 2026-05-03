@@ -8,7 +8,7 @@ summaries_dir: "summaries"
 review: "reviews/review.md"
 literature_add_candidates: "literature_add_candidates.md"
 chat_deliverables:
-  answer: "returned_in_chat_by_default"
+  direct_answer: "returned_in_chat"
   proposal: "returned_in_chat_by_default"
 research_depth:
   preset: "standard" # quick / standard / deep / custom

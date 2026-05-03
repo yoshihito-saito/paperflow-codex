@@ -9,7 +9,7 @@ Use it when you have a source repository and want Codex to answer a question suc
 - What papers should be summarized before making a design decision?
 - What experiments or implementation changes should come next?
 
-The skill reads a request file, checks your existing paper library if one is available, searches the open web for missing papers, writes one summary per important paper, then writes an answer, review, and proposal. Paperpile / Google Drive is optional, but if it is available the skill should search it first. The preferred bibliography source is one shared canonical `.bib` file in the Paperpile / Google Drive folder.
+The skill reads a request file, checks your existing paper library if one is available, searches the open web for missing papers, writes one summary per important paper, then writes a review and proposal while returning the direct answer in chat. Paperpile / Google Drive is optional, but if it is available the skill should search it first. The preferred bibliography source is one shared canonical `.bib` file in the Paperpile / Google Drive folder.
 
 The important idea is simple: do not jump straight from search results to a final answer. Save the paper summaries and notes that support the answer, so the reasoning can be checked and updated later.
 
@@ -50,7 +50,6 @@ paperflow-codex/
       SKILL.md
       references/
         source-request-template.md
-        answer-template.md
         summary-template.md
         review-template.md
         proposal-template.md
@@ -107,7 +106,6 @@ By default, the skill saves results in the source repository:
   paperflow/
     <request-slug>/
       request.md
-      answer.md
       run-log.md
       literature_master.md
       literature_add_candidates.md
@@ -119,7 +117,7 @@ By default, the skill saves results in the source repository:
       run-manifest.yaml
 ```
 
-This keeps the question, the answer, and the supporting notes beside the code or experiment they explain.
+This keeps the question and the supporting notes beside the code or experiment they explain.
 
 The canonical bibliography is not part of the `paperflow/<request-slug>/` folder by default. It should usually live once in the Paperpile / Google Drive folder as a shared library file, for example:
 
@@ -131,7 +129,6 @@ That makes it reusable across multiple paperflow requests and multiple projects.
 
 ## What Gets Written
 
-- `answer.md`: the direct answer to the request.
 - `summaries/`: one Markdown summary per paper that was actually read.
 - `reviews/review.md`: the literature review built from the summaries.
 - `proposals/`: concrete next experiments or implementation changes.
@@ -155,7 +152,6 @@ Start from:
 
 ```text
 skills/paperflow/references/source-request-template.md
-skills/paperflow/references/answer-template.md
 skills/paperflow/references/run-manifest-template.yaml
 ```
 

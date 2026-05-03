@@ -1,140 +1,95 @@
 # Literature Review: <topic>
 
-## Overview
+## Review Overview
 
-Summarize the central question, why it matters, and how the reviewed literature is scoped.
+- Central question:
+- Scope of this review:
+- What was prioritized:
+- Main conclusion:
+- Main uncertainty:
 
-## Requested Output Alignment
+## Direct Answer To The Request
 
-Restate the requested output from `request.md` and map each section below to it. If an item is not addressed, mark it as a gap before finalizing.
+Answer the request directly before expanding into topic-by-topic synthesis.
 
-| Requested item | Where addressed in this review | Status | Notes |
-| --- | --- | --- | --- |
-|  |  | pass / partial / gap / out of scope |  |
+- Best current answer:
+- Confidence: high / medium / low
+- What this answer depends on:
+- What remains uncertain:
 
-## Background
+## Evidence By Requested Topic
 
-Define the key concepts needed to understand the review.
+Create one subsection for each requested topic or deliverable in `request.md`.
+Lead with the conclusion, then justify it with the strongest evidence.
 
-## Major Themes
+### <Requested Topic Or Deliverable>
 
-### Theme 1
-
-Explain the theme and cite the relevant per-paper summaries.
-
-### Theme 2
-
-Explain the theme and cite the relevant per-paper summaries.
-
-### Theme 3
-
-Explain the theme and cite the relevant per-paper summaries.
-
-## Evidence By Topic
-
-Use one subsection for each requested topic. Every major claim should point to one or more per-paper summaries and distinguish direct evidence from extrapolation.
-
-### <Requested Topic>
-
-- Main claim:
-- Supporting summaries:
+- Main conclusion:
+- Why this conclusion is supported:
+- Strongest papers:
 - Direct evidence:
-- Extrapolated evidence:
-- Strength of evidence:
-- Design implication:
-- Open gap:
-
-## Methodological Comparison
-
-Compare models, datasets, tasks, analyses, metrics, and assumptions.
+- Extrapolation or weaker support:
+- Important limitations:
+- What this means for the request:
 
 ## Evidence Table
 
-| Claim or design implication | Main papers | Species / setting | Evidence strength | Extrapolation needed | Summary links |
-| --- | --- | --- | --- | --- | --- |
-|  |  |  | direct / close analog / method / theory / weak |  |  |
+Keep this table short and load-bearing.
+Each row should correspond to a claim or recommendation that matters to the final answer.
 
-## Claim Ledger
+| Claim or recommendation | Strongest papers | Evidence strength | Main limitation | Summary links |
+| --- | --- | --- | --- | --- |
+|  |  | direct / close analog / method / theory / weak |  |  |
 
-Use this table for the load-bearing claims in the review. It should be possible to audit each claim without reopening the original papers.
+## Main Synthesis
 
-| Claim | Evidence summary | Key limitations | Confidence | Supports which requested item? | Summary links |
-| --- | --- | --- | --- | --- | --- |
-|  |  |  | high / medium / low |  |  |
+- Points of agreement across papers:
+- Important tensions or disagreements:
+- Mechanisms or distinctions that matter most:
+- Open gaps that materially affect the answer:
 
-## Points Of Agreement
+## Request-Specific Deliverables
 
-List claims that multiple papers support.
-
-## Tensions And Open Questions
-
-List disagreements, missing experiments, and unresolved conceptual issues.
-
-## Implications For The Source Repository
-
-Explain what the literature suggests about the current project.
-
-## Request-specific Deliverables
-
-Create one subsection for each concrete deliverable requested in `request.md`, using the request's own terminology. Examples include experiment designs, model changes, product recommendations, intervention options, policy choices, research agenda, analysis plan, benchmark plan, or implementation proposal. Omit deliverable types that were not requested.
+Use the request's own terminology.
+Only include deliverables that were actually requested.
 
 ### <Deliverable 1>
 
-- Objective:
-- Proposed option or answer:
+- Recommendation or answer:
 - Evidence basis:
 - Assumptions:
-- Required conditions or controls:
-- Expected outcome:
-- Validation or evaluation plan:
-- Risks and failure modes:
-- Alternatives considered:
-- Novel or decision-relevant contribution:
-- Supporting evidence:
+- Expected benefit:
+- Main risk:
+- Validation check:
 
 ### <Deliverable 2>
 
-- Objective:
-- Proposed option or answer:
+- Recommendation or answer:
 - Evidence basis:
 - Assumptions:
-- Required conditions or controls:
-- Expected outcome:
-- Validation or evaluation plan:
-- Risks and failure modes:
-- Alternatives considered:
-- Novel or decision-relevant contribution:
-- Supporting evidence:
-
-## Prediction, Decision, Or Recommendation Matrix
-
-Use this section only when the request asks for predictions, decisions, recommendations, next steps, or proposals. Organize rows by the request's relevant units: task, model component, intervention, user group, system module, dataset, outcome, domain, or other request-specific category.
-
-| Unit or option | Prediction / recommendation / decision | Evidence basis | Confidence | Validation check | Key summaries |
-| --- | --- | --- | --- | --- | --- |
-|  |  |  | high / medium / low |  |  |
+- Expected benefit:
+- Main risk:
+- Validation check:
 
 ## Practical Recommendations
 
 - Recommendation:
-  - Rationale:
-  - Required controls:
-  - Failure mode:
-  - Validation check:
+  - Why it is worth doing:
+  - What to control for:
+  - What would count as success:
 
-## Annotated Bibliography
+## Important Uncertainty And Failure Modes
 
-Include one short paragraph per important paper, linking to its summary file.
+- Uncertainty:
+- Why it matters:
+- What would reduce it:
 
 ## Output Compliance Check
-
-Before finalizing, verify every request item and quality constraint from `request.md`.
 
 - Requested output sections all present: yes / no
 - Every requested topic addressed: yes / no
 - Major claims cite per-paper summaries: yes / no
 - Direct evidence and extrapolation distinguished: yes / no
 - Request-specific deliverables included when requested: yes / no / not applicable
-- Predictions, decisions, recommendations, or next steps included when requested: yes / no / not applicable
 - Evidence table included: yes / no
 - Important gaps and novelty opportunities identified: yes / no
