@@ -28,25 +28,29 @@ Use the templates in `references/` for request, summary, review, and run-manifes
 1. Read or create `paperflow/<request-slug>/request.md`.
 2. Create or update `run-manifest.yaml`, `run-log.md`, and `literature_add_candidates.md`.
 3. Read only the source files named in the request unless the request is underspecified.
-4. Check the canonical shared Paperpile bibliography path from the request or manifest. By default this should be the Google Drive `Paperpile/references.bib` file.
+4. Check the canonical shared Paperpile bibliography path from the request or manifest. By default this should be the Google Drive `Paperpile/paperpile.bib` file.
 5. If the canonical `.bib` file exists and is accessible, update only changed entries.
 6. If the canonical `.bib` path is configured but the file is missing and library access is available, create it once there.
 7. If the canonical `.bib` path cannot be found or accessed in the session, show a clear user-visible message that the Paperpile bibliography could not be found, and record the exact issue in `run-log.md` and `run-manifest.yaml`.
-8. Reuse existing metadata, notes, summaries, PDFs, and BibTeX entries when available.
-9. Search free web sources only for gaps that remain after library checks.
-10. Assign paper priority before deep reading: `core`, `supporting`, `background`, or `exclude`.
-11. Read one paper at a time and write or update its summary before moving to the next paper.
-12. Build the review from the per-paper summaries.
-13. Return the direct answer and proposal in chat by default unless persisted files are explicitly requested.
+8. For every candidate paper, check Paperpile for a matching PDF before reading from web sources. If Paperpile has the PDF, read that PDF and record the Drive file/path in the summary.
+9. Reuse existing metadata, notes, summaries, PDFs, and BibTeX entries when available.
+10. Search free web sources only for gaps that remain after library checks. When web search finds a paper, check Paperpile again for a matching PDF before reading or summarizing the web copy.
+11. Assign paper priority before deep reading: `core`, `supporting`, `background`, or `exclude`.
+12. Read one paper at a time and write or update its summary before moving to the next paper.
+13. Build the review from the per-paper summaries.
+14. Return the direct answer and proposal in chat by default unless persisted files are explicitly requested.
 
 ## Library Rules
 
-- Prefer one shared canonical `.bib` file named `references.bib` in the Google Drive `Paperpile` folder.
+- Prefer one shared canonical `.bib` file named `paperpile.bib` in the Google Drive `Paperpile` folder.
 - Do not silently replace the canonical bibliography with a newly generated project-local bibliography.
 - Project-local `.bib` files may be used only when they already exist as separate project materials, not as an automatic fallback.
 - Update the canonical `.bib` incrementally, not by rewriting the entire file from scratch.
 - Match entries by DOI first, then arXiv ID, PMID, stable library ID when available, and finally normalized title plus year.
 - If an upstream deletion cannot be matched confidently, keep the local entry and record the ambiguity.
+- Treat Paperpile PDFs as the highest-priority full-text source. If a candidate paper has a matching Paperpile PDF, read that PDF before using an open web PDF, publisher page, abstract, or metadata.
+- Check Paperpile PDF availability for every candidate paper found through web search, DOI lookup, arXiv, PubMed, Semantic Scholar, Google Scholar snippets, or source notes before writing the paper summary.
+- Do not mark a paper as `PDF missing` or summarize it from web metadata until Paperpile PDF lookup has been attempted and recorded.
 - Do not modify Paperpile, Zotero, or another upstream library directly.
 - Updating the configured canonical shared `.bib` file is allowed.
 
@@ -128,6 +132,7 @@ For theoretical, mathematical, proof-heavy, or algorithmically central papers:
 A run is incomplete if any of the following are true:
 
 - the canonical Paperpile bibliography could not be found and this was not reported clearly
+- a candidate paper was summarized from web sources without checking whether Paperpile has a matching PDF
 - per-paper summaries are missing
 - a core-paper summary is only a short bullet list
 - a requested review artifact is missing

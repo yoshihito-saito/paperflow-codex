@@ -10,7 +10,10 @@
 - URL:
 - Drive file:
 - Library status: in Paperpile / in local bibliography / in source notes / suggest adding / not found locally / unknown
-- PDF status: PDF available / PDF missing / open-access PDF found / metadata only / unknown
+- Paperpile PDF checked: yes / no
+- Paperpile PDF status: available and used / available but not used / not found / inaccessible / unknown
+- Paperpile PDF path:
+- PDF status: Paperpile PDF read / open-access PDF read after Paperpile check / PDF missing after Paperpile check / metadata only / unknown
 - Read status: metadata only / abstract only / skimmed full text / section-level read / deep read with section notes
 - Evidence used: metadata / abstract / introduction / methods / results / figures / discussion / supplement / full text
 - Evidence strength for request: direct evidence / close analog / methodological support / theory only / extrapolation

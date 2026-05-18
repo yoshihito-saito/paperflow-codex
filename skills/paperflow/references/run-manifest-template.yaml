@@ -3,7 +3,7 @@ title: "<human readable request title>"
 source_repository: "/absolute/path/to/source/repository"
 output_dir: "paperflow/<request-slug>"
 request: "request.md"
-canonical_bibliography: "/absolute/path/to/GoogleDrive/.../Paperpile/references.bib"
+canonical_bibliography: "/absolute/path/to/GoogleDrive/.../Paperpile/paperpile.bib"
 summaries_dir: "summaries"
 review: "reviews/review.md"
 literature_add_candidates: "literature_add_candidates.md"
@@ -36,6 +36,9 @@ library:
   checked: false
   folder: ""
   files: []
+  paperpile_pdf_lookup_required: true
+  paperpile_pdf_checked_for_web_hits: false
+  paperpile_pdf_preferred_when_available: true
   canonical_bibliography_exists: false
   canonical_bibliography_created_this_run: false
   canonical_bibliography_incremental_update: false
@@ -51,6 +54,11 @@ paper_reading:
     read_status: "metadata only"
     summary: "summaries/<year>-<first-author>-<short-title>.md"
     full_text_available: false
+    paperpile_pdf_checked: false
+    paperpile_pdf_available: false
+    paperpile_pdf_used: false
+    paperpile_pdf_path: ""
+    web_source_used_after_paperpile_check: false
     section_notes_complete: false
     stronger_reasoning_used: false
     math_or_theory_notes_complete: false

@@ -9,7 +9,7 @@ Use it when you have a source repository and want Codex to answer a question suc
 - What papers should be summarized before making a design decision?
 - What experiments or implementation changes should come next?
 
-The skill reads a request file, checks your existing paper library if one is available, searches the open web for missing papers, writes one summary per important paper, then writes a review and proposal while returning the direct answer in chat. Paperpile / Google Drive is optional, but if it is available the skill should search it first. The preferred bibliography source is one shared canonical `.bib` file named `references.bib` in the Google Drive `Paperpile` folder.
+The skill reads a request file, checks your existing paper library if one is available, searches the open web for missing papers, writes one summary per important paper, then writes a review and proposal while returning the direct answer in chat. Paperpile / Google Drive is optional, but if it is available the skill should search it first. The preferred bibliography source is one shared canonical `.bib` file named `paperpile.bib` in the Google Drive `Paperpile` folder. If Paperpile has a matching PDF for a paper, the skill should always read that PDF before using web sources.
 
 The important idea is simple: do not jump straight from search results to a final answer. Save the paper summaries and notes that support the answer, so the reasoning can be checked and updated later.
 
@@ -40,6 +40,22 @@ The results are written back into that same source repository:
 ```
 
 `paperflow-codex` itself only stores the skill instructions and templates.
+
+## ChatGPT Workflow Mode
+
+This repository also includes a ChatGPT-oriented workflow under:
+
+```text
+chatgpt-workflow/
+```
+
+Use this mode when Codex should only read the project repository and generate `paperflow/<request-slug>/request.md`, while ChatGPT performs the literature scan, per-paper summaries, review, and proposal. In this mode, ChatGPT commits Markdown artifacts to the target GitHub repository, and a local Obsidian vault syncs by running `git pull`.
+
+Start with:
+
+```text
+chatgpt-workflow/PAPERFLOW_CHATGPT.md
+```
 
 ## Layout
 
@@ -88,7 +104,7 @@ Why did the latest implementation improve one benchmark but regress another, and
 
 ## Constraints
 
-- If Paperpile / Google Drive is available, search it first.
+- If Paperpile / Google Drive is available, search it first and read matching Paperpile PDFs before web copies or metadata.
 - If a useful paper has no local PDF, mark it as missing and suggest downloading or adding the PDF.
 - Do not modify source code unless explicitly requested.
 ```
@@ -119,10 +135,10 @@ By default, the skill saves results in the source repository:
 
 This keeps the question and the supporting notes beside the code or experiment they explain.
 
-The canonical bibliography is not part of the `paperflow/<request-slug>/` folder by default. It should usually live once in the Google Drive `Paperpile` folder as a shared library file named `references.bib`, for example:
+The canonical bibliography is not part of the `paperflow/<request-slug>/` folder by default. It should usually live once in the Google Drive `Paperpile` folder as a shared library file named `paperpile.bib`, for example:
 
 ```text
-/absolute/path/to/GoogleDrive/.../Paperpile/references.bib
+/absolute/path/to/GoogleDrive/.../Paperpile/paperpile.bib
 ```
 
 That makes it reusable across multiple paperflow requests and multiple projects.
@@ -134,7 +150,7 @@ That makes it reusable across multiple paperflow requests and multiple projects.
 - `proposals/`: concrete next experiments or implementation changes.
 - `literature_master.md`: a table and notes that track all papers considered.
 - `literature_add_candidates.md`: papers that may be worth adding to Paperpile, Zotero, a `.bib` file, or another local library. If a useful paper has no local PDF, the skill should say so here and suggest downloading or adding the PDF.
-- `references.bib`: the canonical shared bibliography file. Place it in the Google Drive `Paperpile` folder. Create it once if missing and library access is available; after that, update only the changed entries.
+- `paperpile.bib`: the canonical shared bibliography file. Place it in the Google Drive `Paperpile` folder. Create it once if missing and library access is available; after that, update only the changed entries.
 - `run-log.md`: what was done in this run.
 - `run-manifest.yaml`: status and paths for continuing the run later.
 

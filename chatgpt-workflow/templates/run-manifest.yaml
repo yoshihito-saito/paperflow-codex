@@ -1,0 +1,39 @@
+request_slug: "<request-slug>"
+title: "<human readable request title>"
+repository: "<github-owner>/<github-repo>"
+branch: "<branch>"
+request_path: "paperflow/<request-slug>/request.md"
+output_dir: "paperflow/<request-slug>"
+paths:
+  run_log: "paperflow/<request-slug>/run-log.md"
+  literature_master: "paperflow/<request-slug>/literature_master.md"
+  literature_add_candidates: "paperflow/<request-slug>/literature_add_candidates.md"
+  summaries_dir: "paperflow/<request-slug>/summaries"
+  review: "paperflow/<request-slug>/reviews/review.md"
+  proposals_dir: "paperflow/<request-slug>/proposals"
+status:
+  request_read: false
+  source_files_checked: false
+  literature_scan: "not_started"
+  summaries: "not_started"
+  review: "not_started"
+  proposal: "not_started"
+  github_commit: "not_started"
+source_files_read: []
+completed_summaries:
+  - title: ""
+    path: ""
+    priority: "core"
+    read_status: "metadata only"
+    evidence_strength: "unknown"
+pending_papers:
+  - title: ""
+    priority: "core"
+    reason_pending: ""
+missing_evidence:
+  - claim_or_question: ""
+    why_missing: ""
+    next_step: ""
+next_action: ""
+updated: "YYYY-MM-DD"
+notes: ""
