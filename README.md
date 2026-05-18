@@ -146,3 +146,7 @@ The templates used by the skill are in:
 ```text
 skills/paperflow/references/
 ```
+
+## License
+
+MIT License. See `LICENSE`.
