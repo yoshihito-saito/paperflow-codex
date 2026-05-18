@@ -1,121 +1,33 @@
 # paperflow-codex
 
-`paperflow-codex` provides the `paperflow` Codex skill for answering research and implementation questions with literature support.
+`paperflow-codex` is the source repository for the `paperflow` Codex skill.
 
-Use it when you have a source repository and want Codex to answer a question such as:
+Paperflow is a literature-grounded research workflow for Codex. It helps answer questions about a codebase, experiment, model, or design decision by reading the source context, checking relevant papers, writing per-paper notes, and then producing a review and concrete next-step proposals.
 
-- Why is this model or experiment behaving this way?
-- What does the relevant literature say about this approach?
-- What papers should be summarized before making a design decision?
+Use it when you want Codex to answer questions like:
+
+- What does the literature say about this approach?
+- Why might this experiment or model be behaving this way?
+- Which papers should we read before changing the implementation?
 - What experiments or implementation changes should come next?
 
-The skill reads a request file, checks your existing paper library if one is available, searches the open web for missing papers, writes one summary per important paper, then writes a review and proposal while returning the direct answer in chat. Paperpile / Google Drive is optional, but if it is available the skill should search it first. The preferred bibliography source is one shared canonical `.bib` file named `paperpile.bib` in the Google Drive `Paperpile` folder. If Paperpile has a matching PDF for a paper, the skill should always read that PDF before using web sources.
+The key idea is that Codex should not jump straight from search results to a final answer. Paperflow keeps the request, paper summaries, review, and proposals beside the source project so the reasoning can be checked and updated later.
 
-The important idea is simple: do not jump straight from search results to a final answer. Save the paper summaries and notes that support the answer, so the reasoning can be checked and updated later.
+## Use As A Codex Skill
 
-## One-Line Use
-
-In the source repository, first ask Codex to draft the request:
+In the source repository, first ask Codex to create a request file:
 
 ```text
-Read this repository and write a Paperflow Request for investigating why the latest benchmark changed. Save it as paperflow/benchmark-regression/request.md.
+Read this repository and write a Paperflow Request for <question>. Save it as paperflow/<request-slug>/request.md.
 ```
 
-Then run the research workflow:
+Then run Paperflow:
 
 ```text
-Use paperflow to answer paperflow/benchmark-regression/request.md.
+Use paperflow to answer paperflow/<request-slug>/request.md.
 ```
 
-The request file should live inside the generated Paperflow folder in the source repository:
-
-```text
-<source-repo>/paperflow/<request-slug>/request.md
-```
-
-The results are written back into that same source repository:
-
-```text
-<source-repo>/paperflow/<request-slug>/
-```
-
-`paperflow-codex` itself only stores the skill instructions and templates.
-
-## ChatGPT Workflow Mode
-
-This repository also includes a ChatGPT-oriented workflow under:
-
-```text
-chatgpt-workflow/
-```
-
-Use this mode when Codex should only read the project repository and generate `paperflow/<request-slug>/request.md`, while ChatGPT performs the literature scan, per-paper summaries, review, and proposal. In this mode, ChatGPT commits Markdown artifacts to the target GitHub repository, and a local Obsidian vault syncs by running `git pull`.
-
-Start with:
-
-```text
-chatgpt-workflow/PAPERFLOW_CHATGPT.md
-```
-
-## Layout
-
-```text
-paperflow-codex/
-  skills/
-    paperflow/
-      SKILL.md
-      references/
-        source-request-template.md
-        summary-template.md
-        review-template.md
-        proposal-template.md
-        run-manifest-template.yaml
-```
-
-## How It Works
-
-The request file does not need to be written by hand. A good default workflow is to let Codex inspect the source repository and create the first draft:
-
-```text
-Read this repository and create a Paperflow Request for the main open research or implementation question. Save it as paperflow/<request-slug>/request.md.
-```
-
-Codex should write a Markdown file that states the question, source context, files to inspect, literature scope, and constraints. For example:
-
-```text
-# Paperflow Request: Unexpected Benchmark Regression
-
-## Question
-
-Why did the latest implementation improve one benchmark but regress another, and what does the literature suggest we should check next?
-
-## Source Files To Read
-
-- README.md
-- src/
-- experiments/
-- docs/benchmark-notes.md
-
-## Literature Scope
-
-- methods related to the implementation change
-- evaluation metrics used by the benchmark
-- known failure modes or tradeoffs
-
-## Constraints
-
-- If Paperpile / Google Drive is available, search it first and read matching Paperpile PDFs before web copies or metadata.
-- If a useful paper has no local PDF, mark it as missing and suggest downloading or adding the PDF.
-- Do not modify source code unless explicitly requested.
-```
-
-After checking the draft request, ask Codex to run the skill:
-
-```text
-Use paperflow to answer paperflow/benchmark-regression/request.md.
-```
-
-By default, the skill saves results in the source repository:
+The request and outputs live in the source repository, not in this repository:
 
 ```text
 <source-repo>/
@@ -129,65 +41,93 @@ By default, the skill saves results in the source repository:
       reviews/
         review.md
       proposals/
-        YYYY-MM-DD-<topic>.md
       run-manifest.yaml
 ```
 
-This keeps the question and the supporting notes beside the code or experiment they explain.
+`paperflow-codex` only stores the skill instructions and templates.
 
-The canonical bibliography is not part of the `paperflow/<request-slug>/` folder by default. It should usually live once in the Google Drive `Paperpile` folder as a shared library file named `paperpile.bib`, for example:
+## Paperpile / Google Drive
 
-```text
-/absolute/path/to/GoogleDrive/.../Paperpile/paperpile.bib
-```
+Paperpile is the default library setup. If it is available, Paperflow should check it before open-web sources and should read matching Paperpile PDFs before web PDFs or metadata.
 
-That makes it reusable across multiple paperflow requests and multiple projects.
+To make Paperpile available to Paperflow:
 
-## What Gets Written
-
-- `summaries/`: one Markdown summary per paper that was actually read.
-- `reviews/review.md`: the literature review built from the summaries.
-- `proposals/`: concrete next experiments or implementation changes.
-- `literature_master.md`: a table and notes that track all papers considered.
-- `literature_add_candidates.md`: papers that may be worth adding to Paperpile, Zotero, a `.bib` file, or another local library. If a useful paper has no local PDF, the skill should say so here and suggest downloading or adding the PDF.
-- `paperpile.bib`: the canonical shared bibliography file. Place it in the Google Drive `Paperpile` folder. Create it once if missing and library access is available; after that, update only the changed entries.
-- `run-log.md`: what was done in this run.
-- `run-manifest.yaml`: status and paths for continuing the run later.
-
-By default, a standard run scans up to 40 candidate papers, writes summaries for up to 20 papers, and deeply reads up to 10 papers. The skill processes papers one at a time: read one paper, write or update its summary, then move to the next paper. Summaries are detailed notes by default. Compact synthesis belongs inside each per-paper summary as an entry point for review writing, not as a replacement for the summary set or the review artifact.
-
-When equations, definitions, objectives, update rules, or algorithms matter, the skill should check them against the paper and preserve the verified details in the relevant per-paper summary.
-
-If you later want to add new keywords or papers, use the same folder:
+1. Open Paperpile settings.
+2. Go to `Workflow and integrations`.
+3. Configure `BibTeX exports`.
+4. Save the exported bibliography as:
 
 ```text
-Use paperflow to update paperflow/<request-slug> with keywords "new keyword, another keyword".
+Google Drive/paperpile.bib
 ```
 
-Start from:
+When Codex can access that file, Paperflow uses it as the shared bibliography source across projects. If a useful paper is missing from Paperpile or has no local PDF, Paperflow records that in `literature_add_candidates.md`.
+
+When starting a Paperflow run, you can tell Codex:
 
 ```text
-skills/paperflow/references/source-request-template.md
-skills/paperflow/references/run-manifest-template.yaml
+Use paperflow to answer paperflow/<request-slug>/request.md. Use Google Drive/paperpile.bib as the bibliography source.
 ```
 
-## Basic Use
+## Optional: Zotero Or Mendeley
 
-In the source repository, ask Codex to create a request file:
+Paperflow can also use Zotero or Mendeley if you provide a BibTeX file and, when available, the folder that contains PDFs.
+
+Suggested setup:
+
+- Zotero: export or auto-export BibTeX to `Google Drive/zotero.bib`.
+- Mendeley: export BibTeX to `Google Drive/mendeley.bib`.
+- PDFs: if your PDFs are stored in a normal folder, tell Codex the folder path.
+
+For Zotero, Better BibTeX auto-export is the easiest way to keep `zotero.bib` updated. For Mendeley, export BibTeX from the app whenever the library changes.
+
+Ask Codex to edit the skill configuration/instructions for your setup:
+
+```text
+Edit the paperflow Codex skill so it uses Zotero by default. Use Google Drive/zotero.bib as the bibliography source and /path/to/PDFs as the PDF folder.
+```
+
+or:
+
+```text
+Edit the paperflow Codex skill so it uses Mendeley by default. Use Google Drive/mendeley.bib as the bibliography source and /path/to/PDFs as the PDF folder.
+```
+
+## ChatGPT Workflow
+
+You can also split the workflow between Codex and ChatGPT.
+
+Use Codex to inspect the source repository and write only the request:
 
 ```text
 Read this repository and write a Paperflow Request for <question>. Save it as paperflow/<request-slug>/request.md.
 ```
 
-Then ask Codex to use the `paperflow` skill with that source request:
+Then give ChatGPT the target repository and ask it to follow:
 
 ```text
-Use paperflow to answer paperflow/<request-slug>/request.md.
+chatgpt-workflow/PAPERFLOW_CHATGPT.md
 ```
 
-For actual work, the request should usually live in the source repository under `paperflow/<request-slug>/request.md`. The template at `skills/paperflow/references/source-request-template.md` is a reference for what Codex should write.
+ChatGPT should treat `paperflow/<request-slug>/request.md` as the contract, then use the prompt sequence in `chatgpt-workflow/prompts/` to write the literature scan, per-paper summaries, review, proposal, run log, and manifest.
 
-## Installation As A Codex Skill
+Useful starting prompt for ChatGPT:
+
+```text
+Follow chatgpt-workflow/PAPERFLOW_CHATGPT.md for paperflow/<request-slug>/request.md. Create or update the Paperflow Markdown outputs in paperflow/<request-slug>/.
+```
+
+## What Gets Written
+
+- `summaries/`: one Markdown summary per paper that was actually read.
+- `reviews/review.md`: the literature review built from those summaries.
+- `proposals/`: concrete next experiments or implementation changes.
+- `literature_master.md`: papers considered during the run.
+- `literature_add_candidates.md`: papers worth adding to Paperpile or another library.
+- `run-log.md`: what happened during the run.
+- `run-manifest.yaml`: paths and status for continuing later.
+
+## Installation
 
 For Codex to auto-discover the skill, copy or symlink:
 
@@ -201,4 +141,8 @@ into:
 ~/.codex/skills/paperflow
 ```
 
-This repository keeps the skill source-controlled, while the symlink or copy makes it available to Codex.
+The templates used by the skill are in:
+
+```text
+skills/paperflow/references/
+```
