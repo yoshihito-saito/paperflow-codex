@@ -5,7 +5,7 @@ This workflow splits RefFlow into two roles:
 - Codex reads the project repository and writes only `refflow/<request-slug>/request.md`.
 - ChatGPT treats that `request.md` as the contract, then performs literature scan, paper summaries, review, and proposal writing.
 
-ChatGPT writes results as Markdown in the target project repository and commits those files to GitHub. ChatGPT Desktop or Web UI is not expected to write directly to the local filesystem. Local Obsidian vaults sync by pulling the GitHub commits.
+ChatGPT writes results as Markdown in the target project repository and commits those files to GitHub. ChatGPT Desktop or Web UI is not expected to write directly to the local filesystem.
 
 ## Standard Layout
 
@@ -56,7 +56,7 @@ Then ChatGPT creates or updates:
 - `reviews/review.md`
 - `proposals/YYYY-MM-DD-<topic>.md`
 
-ChatGPT should commit the Markdown outputs to the GitHub repository. The local Obsidian vault receives the work through `git pull`.
+ChatGPT should commit the Markdown outputs to the GitHub repository.
 
 ## Core Rules
 
@@ -98,8 +98,7 @@ Repeat prompt 3 for each paper. Do not move to review writing until the relevant
 2. ChatGPT reads `request.md` through the GitHub repository.
 3. ChatGPT creates or updates the RefFlow Markdown artifacts.
 4. ChatGPT commits the files to the same GitHub repository.
-5. The local machine runs `git pull`.
-6. Obsidian refreshes the project vault and shows the new Markdown files.
+5. The local machine can pull the Markdown outputs from GitHub when needed.
 
 Suggested commit shape:
 
@@ -107,29 +106,6 @@ Suggested commit shape:
 Add RefFlow summaries for <request-slug>
 Update RefFlow review for <request-slug>
 Update RefFlow proposal for <request-slug>
-```
-
-## Obsidian Setup
-
-Open the project repository itself as an Obsidian vault. This keeps the research notes beside the code, experiments, and request that define their meaning.
-
-Recommended approach:
-
-- Put RefFlow outputs inside `refflow/<request-slug>/`.
-- Use the project repository as the vault root.
-- Sync by `git pull` after ChatGPT commits to GitHub.
-- Link summaries from other notes with paths such as `[[refflow/<slug>/summaries/2024-smith-short-title]]`.
-- Prefer project-local RefFlow folders over one central vault that aggregates all projects. A central vault loses source context and makes GitHub handoff harder to audit.
-
-You may commit `.obsidian/` if the team wants shared vault settings. For most research/code repositories, keep personal workspace state out of git and commit only durable Markdown notes.
-
-Recommended `.gitignore`:
-
-```gitignore
-.obsidian/workspace*
-.obsidian/cache
-.trash/
-.DS_Store
 ```
 
 ## Completion Check
