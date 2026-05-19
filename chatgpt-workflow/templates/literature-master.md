@@ -2,7 +2,7 @@
 
 ## Scope
 
-- Request: `paperflow/<request-slug>/request.md`
+- Request: `refflow/<request-slug>/request.md`
 - Central question:
 - Literature scope:
 

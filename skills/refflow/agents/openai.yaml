@@ -1,0 +1,4 @@
+interface:
+  display_name: "RefFlow"
+  short_description: "Repo-aware literature review"
+  default_prompt: "Use refflow to answer /path/to/source/refflow/<request-slug>/request.md."

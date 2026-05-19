@@ -1,6 +1,6 @@
 # 06 Update Run Log
 
-Update the run tracking files after a ChatGPT Paperflow session.
+Update the run tracking files after a ChatGPT RefFlow session.
 
 ## Record In `run-log.md`
 

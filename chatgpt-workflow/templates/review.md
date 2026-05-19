@@ -25,7 +25,7 @@
 
 | Claim or recommendation | Summary evidence | Evidence type | Limitation | Missing evidence |
 | --- | --- | --- | --- | --- |
-|  | `paperflow/<slug>/summaries/...` | direct / close analog / methodological / theory/background / speculation |  |  |
+|  | `refflow/<slug>/summaries/...` | direct / close analog / methodological / theory/background / speculation |  |  |
 
 ## Synthesis
 

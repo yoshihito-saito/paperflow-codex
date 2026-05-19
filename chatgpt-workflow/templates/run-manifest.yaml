@@ -2,15 +2,15 @@ request_slug: "<request-slug>"
 title: "<human readable request title>"
 repository: "<github-owner>/<github-repo>"
 branch: "<branch>"
-request_path: "paperflow/<request-slug>/request.md"
-output_dir: "paperflow/<request-slug>"
+request_path: "refflow/<request-slug>/request.md"
+output_dir: "refflow/<request-slug>"
 paths:
-  run_log: "paperflow/<request-slug>/run-log.md"
-  literature_master: "paperflow/<request-slug>/literature_master.md"
-  literature_add_candidates: "paperflow/<request-slug>/literature_add_candidates.md"
-  summaries_dir: "paperflow/<request-slug>/summaries"
-  review: "paperflow/<request-slug>/reviews/review.md"
-  proposals_dir: "paperflow/<request-slug>/proposals"
+  run_log: "refflow/<request-slug>/run-log.md"
+  literature_master: "refflow/<request-slug>/literature_master.md"
+  literature_add_candidates: "refflow/<request-slug>/literature_add_candidates.md"
+  summaries_dir: "refflow/<request-slug>/summaries"
+  review: "refflow/<request-slug>/reviews/review.md"
+  proposals_dir: "refflow/<request-slug>/proposals"
 status:
   request_read: false
   source_files_checked: false

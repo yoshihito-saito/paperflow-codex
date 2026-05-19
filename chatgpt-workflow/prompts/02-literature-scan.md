@@ -1,10 +1,10 @@
 # 02 Literature Scan
 
-Use `paperflow/<request-slug>/request.md` to find candidate literature. Use existing summaries, local bibliography files, shared bibliography files, and source notes before web search.
+Use `refflow/<request-slug>/request.md` to find candidate literature. Use existing summaries, local bibliography files, shared bibliography files, and source notes before web search.
 
 ## Tasks
 
-- Search existing Paperflow summaries first.
+- Search existing RefFlow summaries first.
 - Check configured bibliography sources, including shared `paperpile.bib` or `references.bib` when available.
 - Check Paperpile or local PDF availability when accessible.
 - Search web sources only for gaps.

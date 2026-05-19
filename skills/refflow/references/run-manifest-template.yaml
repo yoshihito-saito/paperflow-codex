@@ -1,7 +1,7 @@
 request_slug: "<request-slug>"
 title: "<human readable request title>"
 source_repository: "/absolute/path/to/source/repository"
-output_dir: "paperflow/<request-slug>"
+output_dir: "refflow/<request-slug>"
 request: "request.md"
 canonical_bibliography: "/absolute/path/to/GoogleDrive/.../paperpile.bib"
 summaries_dir: "summaries"

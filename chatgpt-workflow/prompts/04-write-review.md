@@ -1,6 +1,6 @@
 # 04 Write Review
 
-Write `paperflow/<request-slug>/reviews/review.md` using only existing files in `paperflow/<request-slug>/summaries/` as literature evidence.
+Write `refflow/<request-slug>/reviews/review.md` using only existing files in `refflow/<request-slug>/summaries/` as literature evidence.
 
 ## Tasks
 

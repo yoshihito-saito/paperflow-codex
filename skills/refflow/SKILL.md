@@ -1,9 +1,9 @@
 ---
-name: paperflow
+name: refflow
 description: Use when Codex is asked to answer a source request page with literature-grounded research, check the user's existing paper library when available, search free web sources for missing papers, create detailed per-paper summaries, synthesize a scoped review, and return a direct answer in chat plus concrete proposals.
 ---
 
-# Paperflow
+# RefFlow
 
 ## Purpose
 
@@ -19,13 +19,13 @@ Use it to decide:
 
 Write durable research artifacts into the source repository under:
 
-`paperflow/<request-slug>/`
+`refflow/<request-slug>/`
 
 Use the templates in `references/` for request, summary, review, and run-manifest structure.
 
 ## Standard Workflow
 
-1. Read or create `paperflow/<request-slug>/request.md`.
+1. Read or create `refflow/<request-slug>/request.md`.
 2. Create or update `run-manifest.yaml`, `run-log.md`, and `literature_add_candidates.md`.
 3. Read only the source files named in the request unless the request is underspecified.
 4. Check the canonical shared Paperpile bibliography path from the request or manifest. By default this should be the Google Drive `paperpile.bib` file.
@@ -59,7 +59,7 @@ Use the templates in `references/` for request, summary, review, and run-manifes
 
 Create one summary file per paper read beyond metadata level:
 
-`paperflow/<request-slug>/summaries/<year>-<first-author>-<short-title>.md`
+`refflow/<request-slug>/summaries/<year>-<first-author>-<short-title>.md`
 
 Each summary must use `references/summary-template.md`.
 

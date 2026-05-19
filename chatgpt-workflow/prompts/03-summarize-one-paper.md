@@ -4,7 +4,7 @@ Process exactly one paper. Use this prompt once per paper.
 
 ## Input
 
-- Request: `paperflow/<request-slug>/request.md`
+- Request: `refflow/<request-slug>/request.md`
 - Candidate row from `literature_master.md`
 - Full text source, preferably a Paperpile or local PDF when available
 - Template: `chatgpt-workflow/templates/summary.md`
@@ -12,7 +12,7 @@ Process exactly one paper. Use this prompt once per paper.
 ## Tasks
 
 - Read the selected paper only.
-- Write a summary to `paperflow/<request-slug>/summaries/<year>-<first-author>-<short-title>.md`.
+- Write a summary to `refflow/<request-slug>/summaries/<year>-<first-author>-<short-title>.md`.
 - Include citation metadata, PDF/local status, read status, evidence strength, request relevance, key results, limitations, and source locations.
 - Record mathematical or algorithmic details when relevant, including equations, definitions, objectives, proofs, or algorithms.
 - Update `literature_master.md`, `run-manifest.yaml`, and `run-log.md`.

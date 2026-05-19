@@ -1,8 +1,8 @@
-# Paperflow Request: <short title>
+# RefFlow Request: <short title>
 
 ## Question
 
-State the question that paperflow should answer.
+State the question that refflow should answer.
 
 ## Source
 
@@ -63,8 +63,8 @@ Summarize the relevant project context, observed behavior, assumptions, and clai
 
 ## Output
 
-- Default output folder: `paperflow/<request-slug>/`
-- Request file: `paperflow/<request-slug>/request.md`
+- Default output folder: `refflow/<request-slug>/`
+- Request file: `refflow/<request-slug>/request.md`
 
 ## Constraints
 

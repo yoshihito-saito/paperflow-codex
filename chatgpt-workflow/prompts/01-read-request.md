@@ -1,6 +1,6 @@
 # 01 Read Request
 
-You are running Paperflow through ChatGPT. Read `paperflow/<request-slug>/request.md` first and treat it as the only contract.
+You are running RefFlow through ChatGPT. Read `refflow/<request-slug>/request.md` first and treat it as the only contract.
 
 ## Tasks
 
@@ -22,4 +22,4 @@ You are running Paperflow through ChatGPT. Read `paperflow/<request-slug>/reques
 
 ## Output
 
-Commit the created or updated Paperflow control files to GitHub when finished.
+Commit the created or updated RefFlow control files to GitHub when finished.

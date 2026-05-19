@@ -1,8 +1,8 @@
-# Paperflow ChatGPT Workflow
+# RefFlow ChatGPT Workflow
 
-This workflow splits Paperflow into two roles:
+This workflow splits RefFlow into two roles:
 
-- Codex reads the project repository and writes only `paperflow/<request-slug>/request.md`.
+- Codex reads the project repository and writes only `refflow/<request-slug>/request.md`.
 - ChatGPT treats that `request.md` as the contract, then performs literature scan, paper summaries, review, and proposal writing.
 
 ChatGPT writes results as Markdown in the target project repository and commits those files to GitHub. ChatGPT Desktop or Web UI is not expected to write directly to the local filesystem. Local Obsidian vaults sync by pulling the GitHub commits.
@@ -11,7 +11,7 @@ ChatGPT writes results as Markdown in the target project repository and commits 
 
 ```text
 <project-repo>/
-  paperflow/
+  refflow/
     <request-slug>/
       request.md
       run-log.md
@@ -33,7 +33,7 @@ ChatGPT writes results as Markdown in the target project repository and commits 
 Codex should inspect the target project repository and generate:
 
 ```text
-paperflow/<request-slug>/request.md
+refflow/<request-slug>/request.md
 ```
 
 The request must name the question, source files to read, literature scope, constraints, and desired output. After that, Codex stops unless explicitly asked to revise the request.
@@ -43,7 +43,7 @@ The request must name the question, source files to read, literature scope, cons
 ChatGPT reads:
 
 ```text
-paperflow/<request-slug>/request.md
+refflow/<request-slug>/request.md
 ```
 
 Then ChatGPT creates or updates:
@@ -94,9 +94,9 @@ Repeat prompt 3 for each paper. Do not move to review writing until the relevant
 
 ## GitHub Handoff
 
-1. Codex commits or pushes `paperflow/<request-slug>/request.md`, or the user makes it available in the GitHub repository.
+1. Codex commits or pushes `refflow/<request-slug>/request.md`, or the user makes it available in the GitHub repository.
 2. ChatGPT reads `request.md` through the GitHub repository.
-3. ChatGPT creates or updates the Paperflow Markdown artifacts.
+3. ChatGPT creates or updates the RefFlow Markdown artifacts.
 4. ChatGPT commits the files to the same GitHub repository.
 5. The local machine runs `git pull`.
 6. Obsidian refreshes the project vault and shows the new Markdown files.
@@ -104,9 +104,9 @@ Repeat prompt 3 for each paper. Do not move to review writing until the relevant
 Suggested commit shape:
 
 ```text
-Add Paperflow summaries for <request-slug>
-Update Paperflow review for <request-slug>
-Update Paperflow proposal for <request-slug>
+Add RefFlow summaries for <request-slug>
+Update RefFlow review for <request-slug>
+Update RefFlow proposal for <request-slug>
 ```
 
 ## Obsidian Setup
@@ -115,11 +115,11 @@ Open the project repository itself as an Obsidian vault. This keeps the research
 
 Recommended approach:
 
-- Put Paperflow outputs inside `paperflow/<request-slug>/`.
+- Put RefFlow outputs inside `refflow/<request-slug>/`.
 - Use the project repository as the vault root.
 - Sync by `git pull` after ChatGPT commits to GitHub.
-- Link summaries from other notes with paths such as `[[paperflow/<slug>/summaries/2024-smith-short-title]]`.
-- Prefer project-local Paperflow folders over one central vault that aggregates all projects. A central vault loses source context and makes GitHub handoff harder to audit.
+- Link summaries from other notes with paths such as `[[refflow/<slug>/summaries/2024-smith-short-title]]`.
+- Prefer project-local RefFlow folders over one central vault that aggregates all projects. A central vault loses source context and makes GitHub handoff harder to audit.
 
 You may commit `.obsidian/` if the team wants shared vault settings. For most research/code repositories, keep personal workspace state out of git and commit only durable Markdown notes.
 
@@ -134,7 +134,7 @@ Recommended `.gitignore`:
 
 ## Completion Check
 
-A ChatGPT Paperflow run is incomplete if:
+A ChatGPT RefFlow run is incomplete if:
 
 - `request.md` was not read first.
 - `run-manifest.yaml` or `run-log.md` is missing.

@@ -4,7 +4,7 @@ Write a proposal based on `request.md`, `summaries/`, and `reviews/review.md`.
 
 ## Tasks
 
-- Save the proposal to `paperflow/<request-slug>/proposals/YYYY-MM-DD-<topic>.md`.
+- Save the proposal to `refflow/<request-slug>/proposals/YYYY-MM-DD-<topic>.md`.
 - Include source context used.
 - Include literature basis.
 - Include recommended plan.
